@@ -11,36 +11,90 @@
     "version": "0.0.0"
   },
   "tauri": {
+    "systemTray": {
+      "iconPath": "icons/32x32.png",
+      "iconAsTemplate": true
+    },
     "allowlist": {
-      "all": false,
-      "shell": {
-        "all": false,
-        "open": true
-      }
+      "fs": {
+        "readDir": true,
+        "readFile": true,
+        "writeFile": true,
+        "scope": [
+          "$APPDATA/*"
+        ]
+      },
+      "globalShortcut": {
+        "all": true
+      },
+      "path": {
+        "all": true
+      },
+      "window": {
+        "show": true,
+        "hide": true,
+        "setFocus": true,
+        "setSize": true,
+        "center": true,
+        "setSkipTaskbar": true
+      },
+      "protocol": {}
     },
     "bundle": {
       "active": true,
-      "targets": "all",
-      "identifier": "com.tauri.dev",
+      "category": "Productivity",
+      "copyright": "com.magicul.promptclip",
+      "deb": {
+        "depends": []
+      },
+      "externalBin": [],
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
         "icons/128x128@2x.png",
         "icons/icon.icns",
         "icons/icon.ico"
-      ]
+      ],
+      "identifier": "com.magicul.promptclip",
+      "longDescription": "Verve is a lightweight and blazingly fast launcher for accessing and opening applications, files and documents. It serves as a replacement for popular tools such as Spotlight, Raycast, and Alfred, and is written in the Rust programming language using the Tauri Framework.",
+      "macOS": {
+        "entitlements": null,
+        "exceptionDomain": "",
+        "frameworks": [],
+        "providerShortName": null,
+        "signingIdentity": null
+      },
+      "resources": [],
+      "shortDescription": "",
+      "targets": [
+        "app"
+      ],
+      "windows": {
+        "certificateThumbprint": null,
+        "digestAlgorithm": "sha256",
+        "timestampUrl": ""
+      }
     },
     "security": {
-      "csp": null
+      "csp": "default-src promptclip: asset: https://asset.localhost img-src: 'self'"
+    },
+    "updater": {
+      "active": false
     },
     "windows": [
       {
         "fullscreen": false,
-        "resizable": true,
-        "title": "promptclip",
-        "width": 800,
-        "height": 600
+        "resizable": false,
+        "title": "",
+        "width": 750,
+        "height": 100,
+        "alwaysOnTop": true,
+        "decorations": false,
+        "transparent": true,
+        "center": true,
+        "skipTaskbar": true
       }
-    ]
+    ],
+    "macOSPrivateApi": true
   }
 }
