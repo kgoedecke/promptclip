@@ -7,9 +7,11 @@ const Search = () => {
     <Fragment>
       <InputGroup>
         <InputLeftElement pointerEvents='none'>
-          <SearchIcon boxSize='24px' color="#4F4F4F" />
+          <SearchIcon boxSize='18px' color="#4F4F4F" style={{
+            marginTop: "6px"
+          }} />
         </InputLeftElement>
-        <Input type='tel' placeholder='Search for a prompt' size='lg' variant='filled' focusBorderColor='0' background="transparent" color="white" />
+        <Input type='text' placeholder='Search for a prompt' _placeholder={{ color: '#4F4F4F' }} fontSize="18px" size='lg' variant='filled' focusBorderColor='0' background="transparent" color="white" />
       </InputGroup>
     </Fragment>
   )

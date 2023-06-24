@@ -29,6 +29,7 @@ fn create_system_tray() -> SystemTray {
 fn main() {
     create_preferences_if_missing();
     tauri::Builder::default()
+        .plugin(tauri_plugin_sql::Builder::default().build())
         .invoke_handler(tauri::generate_handler![
             open_command,
             handle_input,
