@@ -17,7 +17,8 @@
     "@tauri-apps/api": "^1.4.0",
     "framer-motion": "^10.12.17",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "tauri-plugin-sql-api": "github:tauri-apps/tauri-plugin-sql#v1"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.4.0",
