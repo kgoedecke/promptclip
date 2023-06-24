@@ -1,51 +1,48 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/tauri";
 import "./App.css";
+import { invoke } from '@tauri-apps/api/tauri';
+import { appWindow } from '@tauri-apps/api/window';
+import { appDataDir } from '@tauri-apps/api/path';
+import { preferences, paths } from './cache';
+import { fetchPreferencesData } from "./utils";
+import { useEffect, useState } from "react";
+import { listen } from '@tauri-apps/api/event';
+
+import Search from "./components/Search/Search.component";
+import Dashboard from "./components/Dashboard/Dashboard.component";
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    setGreetMsg(await invoke("greet", { name }));
-  }
+  const [showDashboard, setShowDashboard] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      paths.set('appDataDirPath', await appDataDir());
+      await fetchPreferencesData();
+      await invoke("init_ns_panel", { appShortcut: preferences.get('shortcut'), dashboardShortcut: preferences.get('dashboard_shortcut') });
+
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') {
+          appWindow.hide();
+        }
+      });
+
+      await listen('showDashboard', data => {
+        setShowDashboard(true);
+      });
+
+      await listen('showApp', data => {
+        setShowDashboard(false);
+      });
+
+      await invoke('launch_on_login', {
+        enable: preferences.get('launch_on_login'),
+      });
+    })();
+  }, [])
 
   return (
     <div className="container">
-      <h1>Welcome to Tauri!</h1>
-
-      <div className="row">
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
-        }}
-      >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
-      </form>
-
-      <p>{greetMsg}</p>
+      {showDashboard ? <Dashboard /> : <Search />}
     </div>
   );
 }
