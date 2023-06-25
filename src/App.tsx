@@ -9,7 +9,7 @@ function App() {
   const [showDashboard, setShowDashboard] = useState(false);
 
   useEffect(() => {
-    (async () => {await initialiseApp(setShowDashboard);})();
+    (async () => { await initialiseApp(setShowDashboard); })();
   }, [])
 
   return (
