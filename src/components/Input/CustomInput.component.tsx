@@ -6,7 +6,7 @@ interface InputProps extends Omit<ChakraInputProps, 'size'> {
   size?: 'sm' | 'md' | 'lg' | 'xs';
 }
 
-const Input: React.FC<InputProps> = ({ containerStyle, size, ...rest }) => {
+const CustomInput: React.FC<InputProps> = ({ containerStyle, size, ...rest }) => {
   const mergedContainerStyle = {
     display: 'flex',
     padding: '10px 12px',
@@ -22,4 +22,4 @@ const Input: React.FC<InputProps> = ({ containerStyle, size, ...rest }) => {
   return <ChakraInput size={size} {...rest} style={mergedContainerStyle} _placeholder={{ color: "#4F4F4F" }} />;
 };
 
-export default Input;
+export default CustomInput;

@@ -9,7 +9,7 @@ const theme = extendTheme({
     global: () => ({
       body: {
         bg: "",
-      }
+      },
     })
   }
 });

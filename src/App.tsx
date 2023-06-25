@@ -1,6 +1,5 @@
-import "./App.css";
 import { useEffect, useState } from "react";
-import { initialiseApp } from "./utils/utils";
+import { initialiseApp, switchToApp, switchToDashboard } from "./utils/utils";
 
 import Search from "./components/Search/Search.component";
 import Dashboard from "./components/Dashboard/Dashboard.component";
@@ -11,6 +10,10 @@ function App() {
   useEffect(() => {
     (async () => { await initialiseApp(setShowDashboard); })();
   }, [])
+
+  useEffect(() => {
+      showDashboard ? switchToDashboard() : switchToApp();
+  }, [showDashboard])
 
   return (
     <div className="container">
