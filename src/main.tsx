@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./styles.css";
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import { PromptsProvider } from "./contexts/prompts.context";
 
 const theme = extendTheme({
   styles: {
@@ -17,7 +18,9 @@ const theme = extendTheme({
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
-      <App />
+      <PromptsProvider>
+        <App />
+      </PromptsProvider>
     </ChakraProvider>
   </React.StrictMode>
 );

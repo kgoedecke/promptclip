@@ -1,4 +1,5 @@
 import Database from "tauri-plugin-sql-api";
+import { IPrompt } from "../components/Search/Search.component";
 
 
 // TODO: Add UUID, created_at, last_used_at
@@ -25,7 +26,7 @@ export const storePrompt = async (promptName: string, prompt: string) => {
     db.close();
 }
 
-export const getPrompts = async (): Promise<[]> => {
+export const getPrompts = async (): Promise<IPrompt[]> => {
     const db = await Database.load("sqlite:prompts.db");
     const selectQuery = `
     SELECT * FROM prompts
@@ -36,14 +37,14 @@ export const getPrompts = async (): Promise<[]> => {
     return result;
 }
 
-export const searchPrompts = async (searchTerm: string) => {
+export const searchPrompts = async (searchTerm: string): Promise<IPrompt[]> => {
     const db = await Database.load("sqlite:prompts.db");
     const selectQuery = `
     SELECT * FROM prompts
     WHERE promptName LIKE '%${searchTerm}%'
   `;
 
-    const result = await db.select(selectQuery);
+    const result: IPrompt[] = await db.select(selectQuery);
     db.close();
     return result;
 }
