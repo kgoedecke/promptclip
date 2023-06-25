@@ -117,12 +117,10 @@ pub fn init_ns_panel(
     app_handle: AppHandle<Wry>,
     window: Window<Wry>,
     app_shortcut: &str,
-    dashboard_shortcut: &str,
 ) {
     INIT.call_once(|| {
         set_state!(app_handle, panel, Some(create_ns_panel(&window)));
         register_app_shortcut(&app_handle, app_shortcut);
-        register_dashboard_shortcut(&app_handle, dashboard_shortcut)
     });
 }
 
@@ -140,16 +138,6 @@ fn register_app_shortcut(app_handle: &AppHandle<Wry>, app_shortcut: &str) {
             } else {
                 show_app(window.app_handle());
             };
-        })
-        .unwrap();
-}
-
-fn register_dashboard_shortcut(app_handle: &AppHandle<Wry>, dashboard_shortcut: &str) {
-    let mut shortcut_manager = app_handle.global_shortcut_manager();
-    let window = app_handle.get_window(PANEL_LABEL).unwrap();
-    shortcut_manager
-        .register(dashboard_shortcut, move || {
-            window.emit("showDashboard", Some("Yes")).unwrap();
         })
         .unwrap();
 }

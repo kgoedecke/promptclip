@@ -57,12 +57,13 @@ fn main() {
                 }
                 "Show" => {
                     let window = app.get_window("main").unwrap();
+                    window.emit("showApp", Some("Yes")).unwrap();
                     window.show().unwrap();
                     window.center().unwrap();
                 }
                 "Preferences" => {
                     let window = app.get_window("main").unwrap();
-                    window.emit("PreferencesClicked", Some("Yes")).unwrap();
+                    window.emit("showDashboard", Some("Yes")).unwrap();
                     window.show().unwrap();
                     window.center().unwrap();
                 }

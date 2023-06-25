@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from "../../Input/Input.component";
+import Input from "../Input/Input.component";
 import {
     Box,
     Button,
@@ -8,7 +8,7 @@ import {
     VStack,
 } from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react'
-import { storePrompt } from '../../../utils/database';
+import { storePrompt } from '../../utils/database';
 
 const AddPrompt = () => {
     const [title, setTitle] = React.useState('');

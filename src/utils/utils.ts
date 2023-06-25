@@ -7,6 +7,7 @@ import { appDataDir } from '@tauri-apps/api/path';
 import { invoke } from '@tauri-apps/api/tauri';
 import { listen } from '@tauri-apps/api/event';
 import { createPromptsTable } from './database';
+import { Show } from '@chakra-ui/react';
 
 export const fetchPreferencesData = async () => {
   const preferencesData = await readTextFile(
@@ -41,6 +42,12 @@ export async function initialiseApp(setShowDashboard: (arg0: boolean) => void) {
       appWindow.hide();
     }
   });
+
+  document.onkeyup = function (event) {
+    if (event.metaKey && event.key === 'n') {
+      setShowDashboard(true);
+    }
+  };
 
   await listen('showDashboard', () => {
     setShowDashboard(true);
