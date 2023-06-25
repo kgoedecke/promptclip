@@ -1,4 +1,4 @@
-import { appWindow } from '@tauri-apps/api/window';
+import { appWindow, LogicalSize } from '@tauri-apps/api/window';
 import { register } from '@tauri-apps/api/globalShortcut';
 import { join } from '@tauri-apps/api/path';
 import { readTextFile } from '@tauri-apps/api/fs';
@@ -31,6 +31,23 @@ export async function listenForHotkey(shortcut: string) {
   });
 }
 
+const configureWindow = async () => {
+  await appWindow.center();
+  await appWindow.show();
+  await appWindow.setFocus();
+};
+
+
+export const switchToDashboard = async () => {
+  await appWindow.setSize(new LogicalSize(1000, 722));
+  await configureWindow();
+};
+
+export const switchToApp = async () => {
+  await appWindow.setSize(new LogicalSize(728, 646));
+  await configureWindow();
+};
+
 export async function initialiseApp(setShowDashboard: (arg0: boolean) => void) {
   await createPromptsTable();
   paths.set('appDataDirPath', await appDataDir());
@@ -43,10 +60,15 @@ export async function initialiseApp(setShowDashboard: (arg0: boolean) => void) {
     }
   });
 
-  document.onkeyup = function (event) {
+  document.onkeyup = (event) => {
     if (event.metaKey && event.key === 'n') {
       setShowDashboard(true);
     }
+  };
+
+  document.onblur = async () => {
+    await appWindow.hide();
+    setShowDashboard(false);
   };
 
   await listen('showDashboard', () => {

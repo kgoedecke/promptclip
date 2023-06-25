@@ -1,14 +1,15 @@
 import React from 'react';
-import Input from "../Input/Input.component";
+import CustomInput from "../Input/CustomInput.component";
 import {
     Box,
-    Button,
     FormControl,
     FormLabel,
     VStack,
 } from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react'
 import { storePrompt } from '../../utils/database';
+import CustomButton from '../CustomButton/CustomButton.component';
+import { AddIcon } from '@chakra-ui/icons';
 
 const AddPrompt = () => {
     const [title, setTitle] = React.useState('');
@@ -37,7 +38,7 @@ const AddPrompt = () => {
 
                 <FormControl>
                     <FormLabel>Prompt title</FormLabel>
-                    <Input
+                    <CustomInput
                         placeholder="Write your prompt title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
@@ -46,16 +47,13 @@ const AddPrompt = () => {
 
                 <FormControl>
                     <FormLabel>Prompt text</FormLabel>
-                    <Input
+                    <CustomInput
                         placeholder="Enter your prompt text"
                         value={text}
                         onChange={(e) => setText(e.target.value)}
                     />
                 </FormControl>
-
-                <Button colorScheme="blue" onClick={handleAddPrompt}>
-                    Add Prompt
-                </Button>
+                <CustomButton icon={<AddIcon />} onClick={handleAddPrompt}>Add Prompt</CustomButton>
             </VStack>
         </Box>
     );

@@ -1,10 +1,11 @@
 import React, { Fragment, useEffect } from "react";
-import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
-import { SearchIcon } from '@chakra-ui/icons'
-import Prompt from "../Prompt/Prompt.component";
 import { getPrompts } from "../../utils/database";
+import SearchInput from "../SearchInput/SearchInput.component";
+import Actions from "../Actions/Actions.component";
+import { Divider } from '@chakra-ui/react'
+import Prompts from "../Prompts/Prompts.component";
 
-interface IPrompt {
+export interface IPrompt {
   prompt: string;
   promptName: string;
   id: string;
@@ -20,29 +21,11 @@ const Search = () => {
 
   return (
     <Fragment>
-      <InputGroup>
-        <InputLeftElement pointerEvents='none'>
-          <SearchIcon boxSize='18px' color="#4F4F4F" style={{
-            marginTop: "6px"
-          }} />
-        </InputLeftElement>
-        <Input
-          type='text'
-          placeholder='Search for a prompt'
-          _placeholder={{ color: '#4F4F4F' }}
-          fontSize="18px" size='lg'
-          variant='filled'
-          focusBorderColor='0'
-          background="transparent"
-          color="white"
-          _hover={{ bg: "transparent" }} 
-          />
-      </InputGroup>
-      {prompts.map((prompt, index) => (
-        <Prompt key={index} number={index + 1} title={prompt.promptName} text={prompt.prompt} onClick={() => {
-          console.log(prompt.id);
-        }} />
-      ))}
+      <SearchInput />
+      <Divider width="728px" borderColor="#7D7A75" marginTop="5px" marginBottom="10px" marginLeft={0}/>
+      <Prompts prompts={prompts} />
+      <Divider width="728px" borderColor="#7D7A75" marginTop="5px" marginBottom="20px" marginLeft={0}/>
+      <Actions />
     </Fragment>
   )
 }
