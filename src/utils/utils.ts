@@ -7,8 +7,8 @@ import { appDataDir } from '@tauri-apps/api/path';
 import { invoke } from '@tauri-apps/api/tauri';
 import { listen } from '@tauri-apps/api/event';
 import { createPromptsTable } from './database';
-import { Show } from '@chakra-ui/react';
 
+// TODO: Remove this
 export const fetchPreferencesData = async () => {
   const preferencesData = await readTextFile(
     await join(paths.get('appDataDirPath'), `preferences.json`)
@@ -26,7 +26,6 @@ export async function listenForHotkey(shortcut: string) {
       await appWindow.show();
       await appWindow.center();
       await appWindow.setFocus();
-      // document.getElementById('searchBarInput').focus();
     }
   });
 }
@@ -37,15 +36,23 @@ const configureWindow = async () => {
   await appWindow.setFocus();
 };
 
-
 export const switchToDashboard = async () => {
-  await appWindow.setSize(new LogicalSize(1000, 722));
+  await setWindowSize(1000, 722);
   await configureWindow();
 };
 
 export const switchToApp = async () => {
-  await appWindow.setSize(new LogicalSize(728, 646));
+  await setWindowSize(728, 646);
   await configureWindow();
+};
+
+export const setWindowSize = async (width: number, height: number) => {
+  await appWindow.setSize(new LogicalSize(width, height));
+};
+
+export const setWindowSizeToBody = async () => {
+  const body = document.body;
+  await appWindow.setSize(new LogicalSize(body.clientWidth, body.clientHeight));
 };
 
 export async function initialiseApp(setShowDashboard: (arg0: boolean) => void) {
@@ -77,6 +84,7 @@ export async function initialiseApp(setShowDashboard: (arg0: boolean) => void) {
 
   await listen('showApp', () => {
     setShowDashboard(false);
+    document.getElementById('search-input')!.focus();
   });
 
   await invoke('launch_on_login', {

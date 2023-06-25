@@ -30,8 +30,8 @@ body {
 }
 
 .container {
-  height: 646px;
-  width: 728px;
+  /* height: 646px; */
+  /* width: 728px; */
   padding: 10px 0px 10px 0px;
   background-color: var(--primary-bg-color);
   border-radius: 10px;

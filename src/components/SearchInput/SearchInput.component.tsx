@@ -3,10 +3,12 @@ import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react"
 import React, { Fragment } from "react"
 import { searchPrompts } from "../../utils/database"
 import { PromptsContext } from "../../contexts/prompts.context"
-import { IPrompt } from "../Search/Search.component"
+import { IPrompt } from "../Prompts/Prompts.component"
+import { setWindowSizeToBody } from "../../utils/utils"
 
 const onSearchInputChanged = async (event: React.ChangeEvent<HTMLInputElement>, setPrompts: React.Dispatch<React.SetStateAction<IPrompt[]>>) => {
     setPrompts(await searchPrompts(event.target.value));
+    // TODO: Fix this hacky solution
 }
 
 const SearchInput = () => {
@@ -21,6 +23,7 @@ const SearchInput = () => {
                     }} />
                 </InputLeftElement>
                 <Input
+                    id="search-input"
                     type='text'
                     placeholder='Search for a prompt'
                     _placeholder={{ color: '#4F4F4F' }}

@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import { IPrompt } from "../components/Search/Search.component";
+import { IPrompt } from "../components/Prompts/Prompts.component";
 
 export interface IPromptsContext {
     prompts: IPrompt[];

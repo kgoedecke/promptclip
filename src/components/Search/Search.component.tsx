@@ -5,12 +5,7 @@ import Actions from "../Actions/Actions.component";
 import { Divider } from '@chakra-ui/react'
 import Prompts from "../Prompts/Prompts.component";
 import { PromptsContext } from "../../contexts/prompts.context";
-
-export interface IPrompt {
-  prompt: string;
-  promptName: string;
-  id: string;
-}
+import { setWindowSizeToBody } from "../../utils/utils";
 
 const Search = () => {
   const { prompts, setPrompts } = React.useContext(PromptsContext);
@@ -20,12 +15,18 @@ const Search = () => {
     })();
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      await setWindowSizeToBody();
+    })();
+  }, [prompts]);
+
   return (
     <Fragment>
       <SearchInput />
-      <Divider width="728px" borderColor="#7D7A75" marginTop="5px" marginBottom="10px" marginLeft={0}/>
+      <Divider width="728px" borderColor="#7D7A75" marginTop="5px" marginBottom="10px" marginLeft={0} />
       <Prompts prompts={prompts} />
-      <Divider width="728px" borderColor="#7D7A75" marginTop="5px" marginBottom="20px" marginLeft={0}/>
+      <Divider width="728px" borderColor="#7D7A75" marginTop="5px" marginBottom="25px" marginLeft={0} />
       <Actions />
     </Fragment>
   )

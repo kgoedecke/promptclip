@@ -12,7 +12,7 @@ interface CustomIconButtonProps {
     [key: string]: any;
     onClick?: () => void;
 }
-
+// TODO: Fix blue border on focus
 const CustomIconButton = ({ onClick, dark, iconText, size = 'sm', ...rest }: CustomIconButtonProps) => {
     return (
         <IconButton

@@ -3,22 +3,8 @@ import { Flex, Text } from '@chakra-ui/react';
 import CustomIconButton from '../CustomIconButton/CustomIconButton.component';
 
 const Actions: React.FC = () => {
-  const handleCopySelected = () => {
-    // Handle copy selected action
-  };
-
-  const handleNewPrompt = () => {
-    // Handle new prompt action
-  };
-
-  const handleDeleteSelected = () => {
-    // Handle delete selected action
-  };
-
-  const dark = true;
-
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom:'21px'}}>
       <Flex width="680px" justifyContent="space-between" alignItems="center">
         <Text fontWeight="bold" fontSize="xs" color="#7D7A75">Actions</Text>
 
