@@ -1,13 +1,17 @@
 import { SearchIcon } from "@chakra-ui/icons"
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react"
-import { Fragment } from "react"
+import React, { Fragment } from "react"
 import { searchPrompts } from "../../utils/database"
+import { PromptsContext } from "../../contexts/prompts.context"
+import { IPrompt } from "../Search/Search.component"
 
-const onSearchInputChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-    searchPrompts(event.target.value);
+const onSearchInputChanged = async (event: React.ChangeEvent<HTMLInputElement>, setPrompts: React.Dispatch<React.SetStateAction<IPrompt[]>>) => {
+    setPrompts(await searchPrompts(event.target.value));
 }
 
 const SearchInput = () => {
+    const { setPrompts } = React.useContext(PromptsContext);
+
     return (
         <Fragment>
             <InputGroup>
@@ -26,7 +30,7 @@ const SearchInput = () => {
                     background="transparent"
                     color="white"
                     _hover={{ bg: "transparent" }}
-                    onChange={onSearchInputChanged}
+                    onChange={(event) => onSearchInputChanged(event, setPrompts)}
                 />
             </InputGroup>
         </Fragment>

@@ -4,6 +4,7 @@ import SearchInput from "../SearchInput/SearchInput.component";
 import Actions from "../Actions/Actions.component";
 import { Divider } from '@chakra-ui/react'
 import Prompts from "../Prompts/Prompts.component";
+import { PromptsContext } from "../../contexts/prompts.context";
 
 export interface IPrompt {
   prompt: string;
@@ -12,7 +13,7 @@ export interface IPrompt {
 }
 
 const Search = () => {
-  const [prompts, setPrompts] = React.useState<IPrompt[]>([]);
+  const { prompts, setPrompts } = React.useContext(PromptsContext);
   useEffect(() => {
     (async () => {
       setPrompts(await getPrompts());
