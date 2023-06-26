@@ -32,25 +32,28 @@ impl Default for Theme {
 #[derive(Serialize, Deserialize)]
 struct Preferences {
     shortcut: String,
-    dashboard_shortcut: String,
     launch_on_login: bool,
     menu_bar_icon: bool,
 }
 
 pub fn create_preferences_if_missing() {
     if let Some(proj_dirs) = ProjectDirs::from("com", "magicul", "promptclip") {
-        let preferences_path = proj_dirs.config_dir().join("preferences.json");
-        let theme_path = proj_dirs.config_dir().join("theme.json");
+        let config_dir = proj_dirs.config_dir();
+        fs::create_dir_all(&config_dir).unwrap();
+
+        let preferences_path = config_dir.join("preferences.json");
+        let theme_path = config_dir.join("theme.json");
+
         if !preferences_path.exists() {
             let preference = Preferences {
                 shortcut: String::from("Command+Shift+G"),
-                dashboard_shortcut: String::from("Command+Shift+N"),
                 launch_on_login: true,
                 menu_bar_icon: true,
             };
             let preference_text = serde_json::to_string(&preference).unwrap();
             fs::write(preferences_path, &preference_text).unwrap();
         }
+
         if !theme_path.exists() {
             let theme = Theme::default();
             let theme_text = serde_json::to_string(&theme).unwrap();
