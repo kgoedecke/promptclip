@@ -36,7 +36,6 @@ export const initialiseApp = async () => {
   await fetchPreferencesData();
   await invoke('init_ns_panel', {
     appShortcut: preferences.get('shortcut'),
-    dashboardShortcut: preferences.get('dashboard_shortcut'),
   });
   createDashboardWindow();
 
