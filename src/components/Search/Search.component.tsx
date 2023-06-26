@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { getPrompts } from "../../utils/database";
 import SearchInput from "../SearchInput/SearchInput.component";
 import Actions from "../Actions/Actions.component";
@@ -22,13 +22,13 @@ const Search = () => {
   }, [prompts]);
 
   return (
-    <Fragment>
+    <div className="searchWindow">
       <SearchInput />
       <Divider width="728px" borderColor="#7D7A75" marginTop="5px" marginBottom="10px" marginLeft={0} />
       <Prompts prompts={prompts} />
-      <Divider width="728px" borderColor="#7D7A75" marginTop="5px" marginBottom="25px" marginLeft={0} />
+      <Divider width="728px" borderColor="#7D7A75" marginTop="5px" marginBottom="15px" marginLeft={0} />
       <Actions />
-    </Fragment>
+    </div>
   )
 }
 

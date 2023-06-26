@@ -1,11 +1,10 @@
 import AddPrompt from "../AddPrompt/AddPrompt.component";
-import { Fragment } from "react"
 
 const Dashboard = () => {
   return (
-    <Fragment>
+    <div className="dashboardWindow">
       <AddPrompt />
-    </Fragment>
+    </div>
   )
 }
 

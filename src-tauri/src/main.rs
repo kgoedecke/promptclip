@@ -10,7 +10,7 @@ use tauri::{
 #[allow(unused_imports)]
 use window_vibrancy::{apply_vibrancy, NSVisualEffectMaterial};
 
-use util::{create_preferences_if_missing, handle_input, launch_on_login, open_command};
+use util::{create_preferences_if_missing, launch_on_login};
 
 fn create_system_tray() -> SystemTray {
     let quit = CustomMenuItem::new("Quit".to_string(), "Quit");
@@ -31,8 +31,6 @@ fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_sql::Builder::default().build())
         .invoke_handler(tauri::generate_handler![
-            open_command,
-            handle_input,
             launch_on_login,
             ns_panel::init_ns_panel,
             ns_panel::show_app,

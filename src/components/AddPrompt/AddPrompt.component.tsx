@@ -30,7 +30,7 @@ const AddPrompt = () => {
     };
 
     return (
-        <Box p={4} borderWidth={1} borderRadius="md">
+        <Box p={4} borderRadius="md">
             <VStack spacing={4} align="start">
                 <FormControl>
                     <FormLabel>Add new prompt</FormLabel>
