@@ -1,4 +1,4 @@
-import { appWindow, LogicalSize } from '@tauri-apps/api/window';
+import { appWindow } from '@tauri-apps/api/window';
 import { register } from '@tauri-apps/api/globalShortcut';
 import { join } from '@tauri-apps/api/path';
 import { readTextFile } from '@tauri-apps/api/fs';
@@ -8,7 +8,6 @@ import { invoke } from '@tauri-apps/api/tauri';
 import { listen } from '@tauri-apps/api/event';
 import { createPromptsTable } from './database';
 
-// TODO: Remove this
 export const fetchPreferencesData = async () => {
   const preferencesData = await readTextFile(
     await join(paths.get('appDataDirPath'), `preferences.json`)
@@ -29,31 +28,6 @@ export async function listenForHotkey(shortcut: string) {
     }
   });
 }
-
-const configureWindow = async () => {
-  await appWindow.center();
-  await appWindow.show();
-  await appWindow.setFocus();
-};
-
-export const switchToDashboard = async () => {
-  await setWindowSize(1000, 722);
-  await configureWindow();
-};
-
-export const switchToApp = async () => {
-  await setWindowSize(728, 646);
-  await configureWindow();
-};
-
-export const setWindowSize = async (width: number, height: number) => {
-  await appWindow.setSize(new LogicalSize(width, height));
-};
-
-export const setWindowSizeToBody = async () => {
-  const body = document.body;
-  await appWindow.setSize(new LogicalSize(body.clientWidth, body.clientHeight));
-};
 
 export async function initialiseApp(setShowDashboard: (arg0: boolean) => void) {
   await createPromptsTable();

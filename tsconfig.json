@@ -9,6 +9,8 @@
     ],
     "allowJs": false,
     "skipLibCheck": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,

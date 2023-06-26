@@ -8,11 +8,10 @@ interface PromptProps {
     number: number;
     title: string;
     text: string;
-    onClick: () => void;
 }
 
-const copyToClipboard = async (value: string, e: React.MouseEvent<HTMLButtonElement, MouseEvent> | React.KeyboardEvent<HTMLButtonElement>) => {
-    if (e.type === "keydown" && (e as React.KeyboardEvent<HTMLButtonElement>).key !== "Enter") {
+const copyToClipboard = async (value: string, e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>) => {
+    if (e.type === 'keydown' && (e as React.KeyboardEvent<HTMLButtonElement>).key !== 'Enter') {
         return;
     }
     await navigator.clipboard.writeText(value);
@@ -20,6 +19,10 @@ const copyToClipboard = async (value: string, e: React.MouseEvent<HTMLButtonElem
 };
 
 const Prompt: React.FC<PromptProps> = ({ number, title, text }) => {
+    const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>) => {
+        copyToClipboard(text, e);
+    };
+
     return (
         <Button
             width="100%"
@@ -31,11 +34,11 @@ const Prompt: React.FC<PromptProps> = ({ number, title, text }) => {
             borderRadius="10px"
             bg="transparent"
             color="white"
-            onClick={(e) => copyToClipboard(text, e)}
-            onKeyDown={(e) => copyToClipboard(text, e)}
+            onClick={handleButtonClick}
+            onKeyDown={handleButtonClick}
             margin="5px 0"
-            _hover={{ bg: "#1B1A1D" }}
-            _active={{ bg: "#1B1A1D" }}
+            _hover={{ bg: '#1B1A1D' }}
+            _active={{ bg: '#1B1A1D' }}
             id={number.toString()}
         >
             <Flex align="center">
@@ -43,7 +46,7 @@ const Prompt: React.FC<PromptProps> = ({ number, title, text }) => {
                 <Text ml={2}>{title}</Text>
             </Flex>
             <Flex>
-                <CustomIconButton iconText={"⌘"} dark></CustomIconButton>
+                <CustomIconButton iconText="⌘" dark />
                 <CustomIconButton dark iconText={number.toString()} />
             </Flex>
         </Button>
@@ -51,4 +54,3 @@ const Prompt: React.FC<PromptProps> = ({ number, title, text }) => {
 };
 
 export default Prompt;
-

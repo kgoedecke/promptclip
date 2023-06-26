@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { initialiseApp, switchToApp, switchToDashboard } from "./utils/utils";
+import { initialiseApp } from "./utils/utils";
+import { switchToApp, switchToDashboard } from "./utils/window";
 
 import Search from "./components/Search/Search.component";
 import Dashboard from "./components/Dashboard/Dashboard.component";
