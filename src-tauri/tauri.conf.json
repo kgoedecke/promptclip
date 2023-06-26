@@ -37,7 +37,14 @@
         "setSize": true,
         "center": true,
         "setSkipTaskbar": true,
-        "create": true
+        "create": true,
+        "all": false,
+        "close": true,
+        "maximize": true,
+        "minimize": true,
+        "unmaximize": true,
+        "unminimize": true,
+        "startDragging": true
       },
       "protocol": {}
     },

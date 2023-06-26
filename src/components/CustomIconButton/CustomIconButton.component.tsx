@@ -5,23 +5,25 @@ interface CustomIconButtonProps {
     iconText?: React.ReactElement | string;
     size?: 'xs' | 'sm' | 'md' | 'lg';
     dark?: boolean;
+    flat?: boolean;
+    backgroundColour?: string;
     [key: string]: any;
     onClick?: () => void;
 }
 // TODO: Fix blue border on focus
-const CustomIconButton = ({ onClick, dark, iconText, size = 'sm', ...rest }: CustomIconButtonProps) => {
+const CustomIconButton = ({ onClick, dark, iconText, size = 'sm', flat, backgroundColour, ...rest }: CustomIconButtonProps) => {
     return (
         <IconButton
             icon={<Text fontSize="md" color="#5A595C" {...rest}>{iconText}</Text>}
-            aria-label="New Prompt (Cmd+N)"
+            aria-label="icon-button"
             onClick={onClick}
             mr={2}
             size={size}
-            border={'2px'}
+            border={flat ? 'none' : '2px'}
             textColor={'white'}
             _hover={{}}
             borderColor={dark ? darkBackgroundBorder : lightBackgroundBorder}
-            background={dark ? darkBackground : lightBackground}
+            background={backgroundColour ? backgroundColour : (dark ? darkBackground : lightBackground)}
             disabled={true}
         />
     )

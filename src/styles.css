@@ -1,13 +1,7 @@
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  --primary-bg-color: #0F0F0F;
-  --highlight-overlay: rgba(255, 255, 255, 0.1);
-  --dark-overlay: rgba(0, 0, 0, 0.1);
-  --secondary-bg-color: rgba(84, 101, 115, 0.6);
-  --primary-text-color: #ffffff;
-  --secondary-text-color: #878787;
-  --primary-accent-color: #556ce5;
-  --secondary-accent-color: #48a5ff;
+  --app-bg-color: rgba(15, 15, 15, 0.80);
+  --light-overlay-color: rgba(255, 255, 255, 0.1);
   font-synthesis: none;
   overflow: hidden;
   text-rendering: optimizeLegibility;
@@ -31,20 +25,88 @@ body {
 
 .container {
   padding: 10px 0px 10px 0px;
-  background-color: var(--primary-bg-color);
+  background-color: var(--app-bg-color);
   border-radius: 10px;
   color: white;
 }
 
+.logo {
+  width: 154px !important;
+  height: auto !important;
+  margin-left: 24px;
+  margin-top: 16px;
+}
+
 .searchWindow {
   padding: 10px 0px 10px 0px;
-  background-color: var(--primary-bg-color);
+  background-color: var(--app-bg-color);
   border-radius: 10px;
   color: white;
 }
 
 .dashboardWindow {
   color: white;
-  background-color: #343E4C;
+  background-color: var(--app-bg-color);
   height: 722px;
+  border-radius: 10px;
+  display: flex;
+}
+
+.leftStatusBar {
+  width: 250px;
+}
+
+.promptOptionsHeader {
+  margin-top: 24px;
+  margin-left: 24px;
+  padding-right: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.promptOptions {
+  margin-top: 12px;
+  margin-left: 12px;
+}
+
+.titlebar {
+  height: 30px;
+  background: transparent;
+  user-select: none;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  padding-top: 13px;
+}
+
+.titlebar-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 4px;
+}
+
+#titlebar-close {
+  background-color: rgba(255, 95, 87, 1);
+}
+
+#titlebar-minimize {
+  background-color: rgba(255, 188, 87, 1);
+}
+
+.flatButton {
+  background: 'transparent';
+  border: 'none !important';
+}
+
+.flatButton:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.flatButton:active {
+  background: rgba(255, 255, 255, 0.1) !important;
 }

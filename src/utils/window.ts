@@ -1,3 +1,4 @@
+import { invoke } from "@tauri-apps/api";
 import { appWindow, LogicalSize } from "@tauri-apps/api/window";
 import { WebviewWindow } from '@tauri-apps/api/window'
 
@@ -26,7 +27,12 @@ export const createDashboardWindow = async () => {
         url: '/dashboard',
         title: 'PromptClip',
         resizable: false,
+        transparent: true,
+        decorations: false,
     });
+    await invoke('apply_vibrancy_to_dashboard', {
+        window: DashboardWindow
+    })
     DashboardWindow.hide();
     DashboardWindow.setSize(new LogicalSize(1000, 722));
     DashboardWindow.center();
