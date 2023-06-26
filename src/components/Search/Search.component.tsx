@@ -5,7 +5,7 @@ import Actions from "../Actions/Actions.component";
 import { Divider } from '@chakra-ui/react'
 import Prompts from "../Prompts/Prompts.component";
 import { PromptsContext } from "../../contexts/prompts.context";
-import { setWindowSizeToBody } from "../../utils/utils";
+import { setWindowSizeToBody } from "../../utils/window";
 
 const Search = () => {
   const { prompts, setPrompts } = React.useContext(PromptsContext);

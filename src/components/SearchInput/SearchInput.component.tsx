@@ -4,7 +4,6 @@ import React, { Fragment } from "react"
 import { searchPrompts } from "../../utils/database"
 import { PromptsContext } from "../../contexts/prompts.context"
 import { IPrompt } from "../Prompts/Prompts.component"
-import { setWindowSizeToBody } from "../../utils/utils"
 
 const onSearchInputChanged = async (event: React.ChangeEvent<HTMLInputElement>, setPrompts: React.Dispatch<React.SetStateAction<IPrompt[]>>) => {
     setPrompts(await searchPrompts(event.target.value));

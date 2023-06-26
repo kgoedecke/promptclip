@@ -1,7 +1,6 @@
 import Database from "tauri-plugin-sql-api";
 import { IPrompt } from "../components/Prompts/Prompts.component";
 
-
 // TODO: Add UUID, created_at, last_used_at
 export const createPromptsTable = async () => {
   const db = await Database.load("sqlite:prompts.db");
