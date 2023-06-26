@@ -5,6 +5,7 @@ mod util;
 
 use tauri::{
     CustomMenuItem, Manager, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem,
+    Window,
 };
 
 #[allow(unused_imports)]
@@ -26,6 +27,13 @@ fn create_system_tray() -> SystemTray {
     SystemTray::new().with_menu(tray_menu)
 }
 
+#[tauri::command]
+fn apply_vibrancy_to_dashboard(window: Window) {
+    // let window = app.get_window("main").unwrap();
+    apply_vibrancy(&window, NSVisualEffectMaterial::HudWindow, None, Some(10.0))
+        .expect("Unsupported platform! 'apply_vibrancy' is only supported on macOS");
+}
+
 fn main() {
     create_preferences_if_missing();
     tauri::Builder::default()
@@ -34,7 +42,8 @@ fn main() {
             launch_on_login,
             ns_panel::init_ns_panel,
             ns_panel::show_app,
-            ns_panel::hide_app
+            ns_panel::hide_app,
+            apply_vibrancy_to_dashboard
         ])
         .setup(|app| {
             app.set_activation_policy(tauri::ActivationPolicy::Accessory);

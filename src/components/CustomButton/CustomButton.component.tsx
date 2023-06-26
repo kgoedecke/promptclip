@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
+import { Box, Button, Flex } from '@chakra-ui/react';
 import { darkBackground, darkBackgroundBorder, lightBackground, lightBackgroundBorder } from '../../utils/colors';
 
 interface CustomButtonProps {
@@ -7,24 +7,42 @@ interface CustomButtonProps {
     size?: 'xs' | 'sm' | 'md' | 'lg';
     dark?: boolean;
     children: React.ReactNode;
+    flat?: boolean;
+    backgroundColour?: string;
+    [key: string]: any;
     onClick?: () => void;
 }
 
-const CustomButton: React.FC<CustomButtonProps> = ({ icon, size = 'sm', dark = false, children, onClick}) => {
+const darkStyle = {
+    background: darkBackground,
+    borderColor: darkBackgroundBorder,
+    border: '2px',
+};
+
+const lightStyle = {
+    background: lightBackground,
+    borderColor: lightBackgroundBorder,
+    border: '2px',
+};
+
+const flatStyle = {
+
+};
+
+const CustomButton: React.FC<CustomButtonProps> = ({ icon, size = 'sm', dark = false, backgroundColour, flat, children, onClick, ...rest }) => {
     return (
         <Box
+            className={flat ? 'flatButton' : ''}
             borderRadius="7px"
-            background={dark ? darkBackground : lightBackground}
             display="inline-flex"
             height="40px"
-            padding="0px 0px"
             flexDirection="column"
             justifyContent="center"
-            alignItems="flex-end"
-            border="2px"
-            borderColor={dark ? darkBackgroundBorder : lightBackgroundBorder}
+            alignItems="flex-start"
             gap={8}
             outline="none"
+            style={flat ? flatStyle : (dark ? darkStyle : lightStyle)}
+            {...rest}
         >
             <Button
                 size={size}
@@ -38,9 +56,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({ icon, size = 'sm', dark = f
                 _focus={{ background: 'transparent' }}
             >
                 <Flex align="center">
-                    <Text flex={1} textAlign="left">
-                        {children}
-                    </Text>
+                    {children}
                 </Flex>
             </Button>
         </Box>
