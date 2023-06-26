@@ -7,7 +7,6 @@ import { IPrompt } from "../Prompts/Prompts.component"
 
 const onSearchInputChanged = async (event: React.ChangeEvent<HTMLInputElement>, setPrompts: React.Dispatch<React.SetStateAction<IPrompt[]>>) => {
     setPrompts(await searchPrompts(event.target.value));
-    // TODO: Fix this hacky solution
 }
 
 const SearchInput = () => {

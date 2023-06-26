@@ -36,7 +36,8 @@
         "setFocus": true,
         "setSize": true,
         "center": true,
-        "setSkipTaskbar": true
+        "setSkipTaskbar": true,
+        "create": true
       },
       "protocol": {}
     },
@@ -56,7 +57,7 @@
         "icons/icon.ico"
       ],
       "identifier": "com.magicul.promptclip",
-      "longDescription": "Verve is a lightweight and blazingly fast launcher for accessing and opening applications, files and documents. It serves as a replacement for popular tools such as Spotlight, Raycast, and Alfred, and is written in the Rust programming language using the Tauri Framework.",
+      "longDescription": "",
       "macOS": {
         "entitlements": null,
         "exceptionDomain": "",

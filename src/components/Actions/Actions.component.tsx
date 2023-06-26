@@ -2,9 +2,10 @@ import React from 'react';
 import { Flex, Text } from '@chakra-ui/react';
 import CustomIconButton from '../CustomIconButton/CustomIconButton.component';
 
+// TODO: Reduce the space taken by Actions component
 const Actions: React.FC = () => {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '21px' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '10px' }}>
       <Flex width="680px" justifyContent="space-between" alignItems="center">
         <Text fontWeight="bold" fontSize="xs" color="#7D7A75">
           Actions

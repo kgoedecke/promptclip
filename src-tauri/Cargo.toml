@@ -15,18 +15,10 @@ tauri-build = { version = "1.4", features = [] }
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-tauri = { version = "1.4", features = ["fs-read-dir", "fs-read-file", "fs-write-file", "global-shortcut-all", "macos-private-api", "path-all", "system-tray", "window-center", "window-hide", "window-set-focus", "window-set-size", "window-set-skip-taskbar", "window-show"] }
-rust_search = "2.1.0"
+tauri = { version = "1.4", features = [ "window-create", "fs-read-dir", "fs-read-file", "fs-write-file", "global-shortcut-all", "macos-private-api", "path-all", "system-tray", "window-center", "window-hide", "window-set-focus", "window-set-size", "window-set-skip-taskbar", "window-show"] }
 directories = "4.0.1"
-plist = "1"
-strsim = "0.10.0"
 auto-launch = "0.4.0"
 window-vibrancy = "0.3.2"
-chrono-tz = { version = "0.6.1", default-features = false }
-num-format = { version = "0.4", features = ["with-system-locale"] }
-localzone = "0.2.0"
-sys-locale = "0.2.3"
-
 
 [target."cfg(target_os = \"macos\")".dependencies]
 core-graphics = {version = "0.22.3"}

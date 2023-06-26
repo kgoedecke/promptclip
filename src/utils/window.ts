@@ -1,14 +1,10 @@
 import { appWindow, LogicalSize } from "@tauri-apps/api/window";
+import { WebviewWindow } from '@tauri-apps/api/window'
 
 const configureWindow = async () => {
     await appWindow.center();
     await appWindow.show();
     await appWindow.setFocus();
-};
-
-export const switchToDashboard = async () => {
-    await setWindowSize(1000, 722);
-    await configureWindow();
 };
 
 export const switchToApp = async () => {
@@ -24,3 +20,22 @@ export const setWindowSizeToBody = async () => {
     const body = document.body;
     await appWindow.setSize(new LogicalSize(body.clientWidth, body.clientHeight));
 };
+
+export const createDashboardWindow = async () => {
+    const DashboardWindow = new WebviewWindow('dashboard', {
+        url: '/dashboard',
+        title: 'PromptClip',
+        resizable: false,
+    });
+    DashboardWindow.hide();
+    DashboardWindow.setSize(new LogicalSize(1000, 722));
+    DashboardWindow.center();
+    DashboardWindow.onCloseRequested((event) => {
+        event.preventDefault();
+        DashboardWindow.hide();
+    });
+}
+
+export const getDashboardWindow = () => {
+    return WebviewWindow.getByLabel('dashboard');
+}

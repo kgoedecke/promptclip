@@ -1,25 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { initialiseApp } from "./utils/utils";
-import { switchToApp, switchToDashboard } from "./utils/window";
+import { Routes, Route } from "react-router-dom";
 
 import Search from "./components/Search/Search.component";
 import Dashboard from "./components/Dashboard/Dashboard.component";
 
 function App() {
-  const [showDashboard, setShowDashboard] = useState(false);
-
   useEffect(() => {
-    (async () => { await initialiseApp(setShowDashboard); })();
-  }, [])
-
-  useEffect(() => {
-      showDashboard ? switchToDashboard() : switchToApp();
-  }, [showDashboard])
+    (async () => { await initialiseApp(); })();
+  }, []);
 
   return (
-    <div className="container">
-      {showDashboard ? <Dashboard /> : <Search />}
-    </div>
+    <Routes>
+      <Route path="/" element={<Search />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+    </Routes>
   );
 }
 
