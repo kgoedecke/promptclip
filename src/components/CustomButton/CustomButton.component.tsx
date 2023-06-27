@@ -9,6 +9,7 @@ interface CustomButtonProps {
     children: React.ReactNode;
     flat?: boolean;
     backgroundColour?: string;
+    active?: boolean;
     [key: string]: any;
     onClick?: () => void;
 }
@@ -25,14 +26,11 @@ const lightStyle = {
     border: '2px',
 };
 
-const flatStyle = {
-
-};
-
-const CustomButton: React.FC<CustomButtonProps> = ({ icon, size = 'sm', dark = false, backgroundColour, flat, children, onClick, ...rest }) => {
+const CustomButton: React.FC<CustomButtonProps> = ({ icon, size = 'sm', dark = false, backgroundColour, flat, active, children, onClick, ...rest }) => {
     return (
         <Box
-            className={flat ? 'flatButton' : ''}
+            className={flat ? `flatButton` : ''}
+            background={active ? 'rgba(255, 255, 255, 0.1) !important' : 'transparent'}
             borderRadius="7px"
             display="inline-flex"
             height="40px"
@@ -41,10 +39,11 @@ const CustomButton: React.FC<CustomButtonProps> = ({ icon, size = 'sm', dark = f
             alignItems="flex-start"
             gap={8}
             outline="none"
-            style={flat ? flatStyle : (dark ? darkStyle : lightStyle)}
+            style={flat ? {} : (dark ? darkStyle : lightStyle)}
             {...rest}
         >
             <Button
+                margin={0}
                 size={size}
                 onClick={onClick}
                 leftIcon={icon}

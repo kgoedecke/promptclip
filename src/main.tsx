@@ -19,11 +19,11 @@ const theme = extendTheme({
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
-      <PromptsProvider>
-        <BrowserRouter>
-        <App />
-        </BrowserRouter>
-      </PromptsProvider>
+      <BrowserRouter>
+        <PromptsProvider>
+          <App />
+        </ PromptsProvider>
+      </BrowserRouter>
     </ChakraProvider>
   </React.StrictMode>
 );

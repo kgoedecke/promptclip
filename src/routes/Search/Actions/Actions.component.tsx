@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex, Text } from '@chakra-ui/react';
-import CustomIconButton from '../CustomIconButton/CustomIconButton.component';
+import CustomIconButton from '../../../components/CustomIconButton/CustomIconButton.component';
 
 // TODO: Reduce the space taken by Actions component
 const Actions: React.FC = () => {
