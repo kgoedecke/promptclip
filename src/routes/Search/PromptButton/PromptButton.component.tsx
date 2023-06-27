@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Flex, Text } from '@chakra-ui/react';
-import { StartIcon } from './Icon';
+import { StarIcon } from '../../../components/Icons/StarsIcon';
 import { appWindow } from '@tauri-apps/api/window';
-import CustomIconButton from '../CustomIconButton/CustomIconButton.component';
+import CustomIconButton from '../../../components/CustomIconButton/CustomIconButton.component';
 
 interface PromptProps {
     number: number;
@@ -39,10 +39,11 @@ const Prompt: React.FC<PromptProps> = ({ number, title, text }) => {
             margin="5px 0"
             _hover={{ bg: '#1B1A1D' }}
             _active={{ bg: '#1B1A1D' }}
+            _focus={{ bg: '#1B1A1D' }}
             id={number.toString()}
         >
             <Flex align="center">
-                <StartIcon width="24px" height="24px" />
+                <StarIcon width="24px" height="24px" />
                 <Text ml={2}>{title}</Text>
             </Flex>
             <Flex>

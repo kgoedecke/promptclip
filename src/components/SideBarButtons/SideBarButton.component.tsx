@@ -1,17 +1,21 @@
+import { Link } from 'react-router-dom';
 import CustomButton from '../CustomButton/CustomButton.component';
 
-const SideBarButton = ({ icon, text, onClick }: {
-    icon: React.ReactElement;
-    text: React.ReactElement | string;
-    onClick?: () => void;
+const SideBarButton = ({ icon, text, active, to }: {
+  icon: React.ReactElement;
+  text: React.ReactElement | string;
+  active?: boolean;
+  to: string;
 }) => {
   return (
-    <CustomButton flat width="226px" onClick={onClick}>
-      <div style={{ width: '16px', height: '20px', marginRight: '12px' }}>
-        {icon}
-      </div>
-      {text}
-    </CustomButton>
+    <Link to={to}>
+      <CustomButton flat width="226px" active={active}>
+        <div style={{ width: '16px', height: '20px', marginRight: '12px' }}>
+          {icon}
+        </div>
+        {text}
+      </CustomButton>
+    </Link>
   );
 };
 

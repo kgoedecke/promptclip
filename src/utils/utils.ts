@@ -61,7 +61,7 @@ export const initialiseApp = async () => {
   });
 
   await listen('showApp', () => {
-    document.getElementById('search-input')!.focus();
+    // document.getElementById('search-input')!.focus();
   });
 
   await invoke('launch_on_login', {

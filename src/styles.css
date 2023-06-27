@@ -2,6 +2,7 @@
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   --app-bg-color: rgba(15, 15, 15, 0.80);
   --light-overlay-color: rgba(255, 255, 255, 0.1);
+  --lighter-overlay-color: rgba(255, 255, 255, 0.04);
   font-synthesis: none;
   overflow: hidden;
   text-rendering: optimizeLegibility;
@@ -52,7 +53,7 @@ body {
   display: flex;
 }
 
-.leftStatusBar {
+.leftSideBar {
   width: 250px;
 }
 
@@ -67,6 +68,7 @@ body {
 .promptOptions {
   margin-top: 12px;
   margin-left: 12px;
+  padding-right: 12px;
 }
 
 .titlebar {
@@ -103,10 +105,28 @@ body {
   border: 'none !important';
 }
 
-.flatButton:hover {
+.flatButton:active {
   background: rgba(255, 255, 255, 0.1) !important;
 }
 
-.flatButton:active {
-  background: rgba(255, 255, 255, 0.1) !important;
+.topStatusBar{
+  display: flex;
+  padding-top: 24px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.topStatusBar > .promptSearch {
+  display: flex;
+  flex-direction: row;
+  width: 368px;
+  gap: 12px;
+}
+
+.rightWindow {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-left: 32px;
+  padding-right: 32px;
 }
