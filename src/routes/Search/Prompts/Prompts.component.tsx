@@ -3,9 +3,13 @@ import Prompt from '../PromptButton/PromptButton.component';
 import { Text } from '@chakra-ui/react';
 
 export interface IPrompt {
-    prompt: string;
+    uuid: string;
     promptName: string;
-    id: string;
+    prompt: string;
+    created_at: number;
+    last_used_at: number;
+    used: number;
+    isFavorite: boolean;
 }
 
 const Prompts: React.FC<{ prompts: IPrompt[], refreshPrompts: () => void }> = ({ prompts, refreshPrompts }) => {
@@ -20,10 +24,9 @@ const Prompts: React.FC<{ prompts: IPrompt[], refreshPrompts: () => void }> = ({
 
         return prompts.slice(0, 9).map((prompt, index) => (
             <Prompt
-                key={prompt.id}
-                number={index + 1}
-                title={prompt.promptName}
-                text={prompt.prompt}
+                key={prompt.uuid}
+                index={index + 1}
+                {...prompt}
             />
         ));
     };

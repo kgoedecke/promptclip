@@ -11,7 +11,7 @@ const Search = () => {
   const { prompts, setPrompts } = React.useContext(PromptsContext);
   useEffect(() => {
     (async () => {
-      setPrompts(await getPrompts());
+      setPrompts(await getPrompts("used"));
     })();
   }, []);
 
@@ -22,7 +22,7 @@ const Search = () => {
   }, [prompts]);
 
   const refreshPrompts = async () => {
-    setPrompts(await getPrompts());
+    setPrompts(await getPrompts("used"));
   }
 
   return (
