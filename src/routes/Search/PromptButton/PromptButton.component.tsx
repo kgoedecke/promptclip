@@ -3,12 +3,12 @@ import { Button, Flex, Text } from '@chakra-ui/react';
 import { StarIcon } from '../../../components/Icons/StarsIcon';
 import { appWindow } from '@tauri-apps/api/window';
 import CustomIconButton from '../../../components/CustomIconButton/CustomIconButton.component';
+import { incrementUsageAndSetLastUsed } from '../../../utils/database';
+import { IPrompt } from '../Prompts/Prompts.component';
 
-interface PromptProps {
-    number: number;
-    title: string;
-    text: string;
-}
+interface IPromptProps extends IPrompt {
+    index: number;
+  }
 
 const copyToClipboard = async (value: string, e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>) => {
     if (e.type === 'keydown' && (e as React.KeyboardEvent<HTMLButtonElement>).key !== 'Enter') {
@@ -18,9 +18,10 @@ const copyToClipboard = async (value: string, e: React.MouseEvent<HTMLButtonElem
     await appWindow.hide();
 };
 
-const Prompt: React.FC<PromptProps> = ({ number, title, text }) => {
+const Prompt: React.FC<IPromptProps> = ({ uuid, prompt, promptName, index }) => {
     const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>) => {
-        copyToClipboard(text, e);
+        incrementUsageAndSetLastUsed(uuid);
+        copyToClipboard(prompt, e);
     };
 
     return (
@@ -40,15 +41,15 @@ const Prompt: React.FC<PromptProps> = ({ number, title, text }) => {
             _hover={{ bg: '#1B1A1D' }}
             _active={{ bg: '#1B1A1D' }}
             _focus={{ bg: '#1B1A1D' }}
-            id={number.toString()}
+            id={uuid.toString()}
         >
             <Flex align="center">
                 <StarIcon width="24px" height="24px" />
-                <Text ml={2}>{title}</Text>
+                <Text ml={2}>{promptName}</Text>
             </Flex>
             <Flex>
                 <CustomIconButton iconText="⌘" dark />
-                <CustomIconButton dark iconText={number.toString()} />
+                <CustomIconButton dark iconText={index.toString()} />
             </Flex>
         </Button>
     );

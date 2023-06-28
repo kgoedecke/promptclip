@@ -2,10 +2,12 @@ StarIcon
 import { Box, Text } from "@chakra-ui/react";
 import { StarIcon } from "../Icons/StarsIcon";
 import { UsedForIcon } from "../Icons/UsedForIcon";
-import { EditIcon } from "../Icons/EditIcon";
 import { IPrompt } from "../../routes/Search/Prompts/Prompts.component";
+import { HeartIcon } from "../Icons/HeartIcon";
+import { deletePrompt, toggleFavorite } from "../../utils/database";
+import { TrashIcon } from "../Icons/TrashIcon";
 
-const DetailedPrompt: React.FC<IPrompt> = ({ promptName, prompt }) => {
+const DetailedPrompt: React.FC<IPrompt> = ({ promptName, prompt, used, isFavorite, uuid }) => {
     return (
         <Box style={{
             display: 'flex',
@@ -41,13 +43,18 @@ const DetailedPrompt: React.FC<IPrompt> = ({ promptName, prompt }) => {
                     marginRight: '24px',
                 }}>
                     <UsedForIcon width="18px" height="18px" marginRight="4px" />
-                    <Text fontSize={'14px'} color={"grey"} marginTop={'-2px'} >14</Text>
+                    <Text fontSize={'14px'} color={"grey"} marginTop={'-2px'} >{used}</Text>
                 </div>
-                <EditIcon marginTop='1px' cursor='pointer' onClick={() => {console.log("Hei")}}/>
+                {/* <EditIcon marginTop='1px' cursor='pointer' onClick={() => {console.log("Hei")}}/> */}
+                <HeartIcon width="18px" height="18px" color={isFavorite ? "red" : "grey"} cursor='pointer' marginRight='24px' onClick={async () => {
+                    await toggleFavorite(uuid, isFavorite);
+                }} />
+                <TrashIcon width="18px" height="18px" cursor='pointer' color={"grey"} onClick={async () => {
+                    await deletePrompt(uuid);
+                }} />
             </div>
         </Box>
     )
 };
-
 export default DetailedPrompt;
 

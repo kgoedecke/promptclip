@@ -5,9 +5,15 @@ import { AddIcon, EditIcon, RepeatClockIcon, StarIcon } from "@chakra-ui/icons";
 import SideBarButton from "../../components/SideBarButtons/SideBarButton.component";
 import { HeartIcon } from "../../components/Icons/HeartIcon";
 import CustomButton from "../../components/CustomButton/CustomButton.component";
-import AddPrompt from "./routes/AddPrompt/AddPrompt.component";
-import ViewAllPrompts from "./routes/ViewAllPrompts/ViewAllPrompts";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import ViewAllPrompts from "./routes/ViewAllPrompts/ViewAllPrompts";
+import AddPrompt from "./routes/AddPrompt/AddPrompt.component";
+import Favorites from "./routes/Favorites/Favorites";
+import MostUsed from "./routes/MostUsed/MostUsed";
+import RecentlyUsed from "./routes/RecentlyUsed/RecentlyUsed";
+import { PromptsContext } from "../../contexts/prompts.context";
+import { useContext, useEffect } from "react";
+import { getPrompts } from "../../utils/database";
 
 const routes = {
   allPrompts: '/dashboard',
@@ -18,9 +24,16 @@ const routes = {
 }
 
 const Dashboard = () => {
+
+  const { prompts, setPrompts } = useContext(PromptsContext);
+  useEffect(() => {
+    (async () => {
+      setPrompts(await getPrompts("dateCreated"));
+    })();
+  }, [prompts]);
+
   const location = useLocation();
   const nav = useNavigate();
-  console.log(location.pathname);
   return (
     <div className="dashboardWindow">
       <div className="leftSideBar">
@@ -53,8 +66,11 @@ const Dashboard = () => {
         }} />
         <div>
           <Routes>
-            <Route path="/" element={<ViewAllPrompts />} />
+            <Route path="/" element={<ViewAllPrompts prompts={prompts}/>} />
             <Route path="/add-prompt" element={<AddPrompt />} />
+            <Route path="/favorites" element={<Favorites prompts={prompts}/>} />
+            <Route path="/recent-used" element={<RecentlyUsed prompts={prompts} />} />
+            <Route path="/most-used" element={<MostUsed prompts={prompts}/>} />
           </Routes>
         </div>
       </div>
