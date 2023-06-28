@@ -1,8 +1,8 @@
-import Database from "tauri-plugin-sql-api";
-import { IPrompt } from "../routes/Search/Prompts/Prompts.component";
-import { v4 as uuidv4 } from "uuid";
+import Database from 'tauri-plugin-sql-api';
+import { v4 as uuidv4 } from 'uuid';
+import { IPrompt } from '../types/Prompt.types';
 
-const db = await Database.load("sqlite:prompts.db");
+const db = await Database.load('sqlite:prompts.db');
 
 export const createPromptsTable = async () => {
   const createTableQuery = `
@@ -29,8 +29,8 @@ export const storePrompt = async (promptName: string, prompt: string) => {
 };
 
 export const getPrompts = async (
-  filter: "lastUsed" | "used" | "dateCreated",
-  favorites?: boolean
+  filter: 'lastUsed' | 'used' | 'dateCreated',
+  favorites?: boolean,
 ): Promise<IPrompt[]> => {
   let selectQuery = `
     SELECT * FROM prompts
@@ -42,15 +42,15 @@ export const getPrompts = async (
     `;
   }
 
-  if (filter === "lastUsed") {
+  if (filter === 'lastUsed') {
     selectQuery += `
       ORDER BY last_used_at DESC
     `;
-  } else if (filter === "used") {
+  } else if (filter === 'used') {
     selectQuery += `
       ORDER BY used DESC
     `;
-  } else if (filter === "dateCreated") {
+  } else if (filter === 'dateCreated') {
     selectQuery += `
       ORDER BY created_at DESC
     `;
@@ -96,7 +96,6 @@ export const toggleFavorite = async (uuid: string, isFavorite: boolean) => {
     SET isFavorite = ${favorite}
     WHERE uuid = '${uuid}'
   `;
-  console.log(updateQuery);
 
   await db.execute(updateQuery);
 };

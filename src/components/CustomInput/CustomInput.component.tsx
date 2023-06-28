@@ -19,7 +19,7 @@ const CustomInput: React.FC<InputProps> = ({ containerStyle, size, ...rest }) =>
     ...containerStyle,
   };
 
-  return <ChakraInput size={size} {...rest} style={mergedContainerStyle} _placeholder={{ color: "#667085" }} />;
+  return <ChakraInput size={size} {...rest} style={mergedContainerStyle} _placeholder={{ color: '#667085' }} />;
 };
 
 export default CustomInput;

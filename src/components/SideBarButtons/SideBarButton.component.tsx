@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom';
 import CustomButton from '../CustomButton/CustomButton.component';
 
-const SideBarButton = ({ icon, text, active, to }: {
+function SideBarButton({
+  icon, text, active, to,
+}: {
   icon: React.ReactElement;
   text: React.ReactElement | string;
   active?: boolean;
   to: string;
-}) => {
+}) {
   return (
     <Link to={to}>
       <CustomButton flat width="226px" active={active}>
@@ -17,6 +19,6 @@ const SideBarButton = ({ icon, text, active, to }: {
       </CustomButton>
     </Link>
   );
-};
+}
 
 export default SideBarButton;
