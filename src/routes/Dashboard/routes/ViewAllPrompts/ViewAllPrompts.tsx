@@ -1,20 +1,18 @@
-import DetailedPrompt from "../../../../components/DetailedPrompt/DetailedPrompt.component";
-import { Text } from "@chakra-ui/react";
-import CustomInput from "../../../../components/CustomInput/CustomInput.component";
-import { IPrompt } from "../../../Search/Prompts/Prompts.component";
+import { Text } from '@chakra-ui/react';
+import DetailedPrompt from '../../../../components/DetailedPrompt/DetailedPrompt.component';
+import CustomInput from '../../../../components/CustomInput/CustomInput.component';
+import { IPrompt } from '../../../../types/Prompt.types';
 
-const ViewAllPrompts = ({ prompts }: {
-    prompts: IPrompt[]
-}) => {
-    return (
-        <div>
-            <Text fontWeight={'bold'}>All Prompts</Text>
-            <CustomInput placeholder="Search" marginTop={'16px'} />
-            {prompts.map((prompt, index) => {
-                return <DetailedPrompt key={index} {...prompt} />
-            })}
-        </div>
-    )
+function ViewAllPrompts({ prompts }: {
+  prompts: IPrompt[]
+}) {
+  return (
+    <div>
+      <Text fontWeight="bold">All Prompts</Text>
+      <CustomInput placeholder="Search" marginTop="16px" />
+      {prompts.map((prompt, index) => <DetailedPrompt key={index} {...prompt} />)}
+    </div>
+  );
 }
 
 export default ViewAllPrompts;

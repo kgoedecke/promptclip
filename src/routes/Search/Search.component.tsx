@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
-import { getPrompts } from "../../utils/database";
-import SearchInput from "./SearchInput/SearchInput.component";
-import Actions from "./Actions/Actions.component";
-import { Divider } from '@chakra-ui/react'
-import Prompts from "../Search/Prompts/Prompts.component";
-import { PromptsContext } from "../../contexts/prompts.context";
-import { setWindowSizeToBody } from "../../utils/window";
+import React, { useEffect } from 'react';
+import { Divider } from '@chakra-ui/react';
+import { getPrompts } from '../../utils/database';
+import SearchInput from './SearchInput/SearchInput.component';
+import Actions from './Actions/Actions.component';
+import Prompts from './Prompts/Prompts.component';
+import { PromptsContext } from '../../contexts/prompts.context';
+import { setWindowSizeToBody } from '../../utils/window';
 
-const Search = () => {
+function Search() {
   const { prompts, setPrompts } = React.useContext(PromptsContext);
   useEffect(() => {
     (async () => {
-      setPrompts(await getPrompts("used"));
+      setPrompts(await getPrompts('used'));
     })();
   }, []);
 
@@ -22,8 +22,8 @@ const Search = () => {
   }, [prompts]);
 
   const refreshPrompts = async () => {
-    setPrompts(await getPrompts("used"));
-  }
+    setPrompts(await getPrompts('used'));
+  };
 
   return (
     <div className="searchWindow">
@@ -33,7 +33,7 @@ const Search = () => {
       <Divider width="728px" borderColor="#7D7A75" marginTop="5px" marginBottom="15px" marginLeft={0} />
       <Actions />
     </div>
-  )
+  );
 }
 
 export default Search;

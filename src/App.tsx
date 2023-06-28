@@ -1,9 +1,9 @@
-import { useEffect } from "react";
-import { initialiseApp } from "./utils/utils";
-import { Routes, Route } from "react-router-dom";
+import { useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { initialiseApp } from './utils/utils';
 
-import Search from "./routes/Search/Search.component";
-import Dashboard from "./routes/Dashboard/Dashboard.component";
+import Search from './routes/Search/Search.component';
+import Dashboard from './routes/Dashboard/Dashboard.component';
 
 function App() {
   useEffect(() => {

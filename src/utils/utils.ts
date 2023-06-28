@@ -1,17 +1,16 @@
 import { appWindow } from '@tauri-apps/api/window';
 import { register } from '@tauri-apps/api/globalShortcut';
-import { join } from '@tauri-apps/api/path';
+import { join, appDataDir } from '@tauri-apps/api/path';
 import { readTextFile } from '@tauri-apps/api/fs';
-import { preferences, paths } from '../cache';
-import { appDataDir } from '@tauri-apps/api/path';
 import { invoke } from '@tauri-apps/api/tauri';
 import { listen } from '@tauri-apps/api/event';
+import { preferences, paths } from '../cache';
 import { createPromptsTable } from './database';
 import { createDashboardWindow, getDashboardWindow } from './window';
 
 export const fetchPreferencesData = async () => {
-  const preferencesData = await readTextFile(await join(paths.get('appDataDirPath'), `preferences.json`)).then(
-    (data) => JSON.parse(data)
+  const preferencesData = await readTextFile(await join(paths.get('appDataDirPath'), 'preferences.json')).then(
+    (data) => JSON.parse(data),
   );
   Object.keys(preferencesData).forEach((key) => {
     preferences.set(key, preferencesData[key]);
