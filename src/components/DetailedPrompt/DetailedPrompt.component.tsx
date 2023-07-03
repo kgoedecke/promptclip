@@ -90,6 +90,7 @@ const DetailedPrompt: React.FC<IPrompt> = ({
           color="grey"
           onClick={async () => {
             await deletePrompt(uuid);
+            setUpdate();
           }}
         />
       </div>

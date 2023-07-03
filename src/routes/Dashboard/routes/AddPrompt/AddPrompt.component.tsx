@@ -1,21 +1,29 @@
-import React from 'react';
+import { useState, useContext, useEffect } from 'react';
 import {
-  Box,
-  FormControl,
-  FormLabel,
-  Text,
-  VStack,
-  useToast,
+  Box, FormControl, FormLabel, Text, VStack, useToast, Select,
 } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 import CustomInput from '../../../../components/CustomInput/CustomInput.component';
-import { storePrompt } from '../../../../utils/database';
+import { storePrompt, getCategories } from '../../../../utils/database';
 import CustomButton from '../../../../components/CustomButton/CustomButton.component';
+import { UpdateContext } from '../../../../contexts/update.context';
+import { ICategory } from '../../../../types/Prompt.types';
 
 function AddPrompt() {
-  const [title, setTitle] = React.useState('');
-  const [text, setText] = React.useState('');
+  const [title, setTitle] = useState('');
+  const [text, setText] = useState('');
+  const [categories, setCategories] = useState<ICategory[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const { setUpdate } = useContext(UpdateContext);
   const toast = useToast();
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      setCategories(await getCategories());
+    };
+
+    fetchCategories();
+  }, []);
 
   const handleAddPrompt = async () => {
     if (title === '' || text === '') {
@@ -28,7 +36,7 @@ function AddPrompt() {
       });
       return;
     }
-    await storePrompt(title, text);
+    await storePrompt(title, text, selectedCategory || null);
     toast({
       title: 'Prompt added.',
       description: "We've added your prompt for you.",
@@ -38,6 +46,8 @@ function AddPrompt() {
     });
     setTitle('');
     setText('');
+    setSelectedCategory('');
+    setUpdate();
   };
 
   return (
@@ -64,7 +74,31 @@ function AddPrompt() {
             onChange={(e) => setText(e.target.value)}
           />
         </FormControl>
-        <CustomButton icon={<AddIcon />} onClick={handleAddPrompt}>Add Prompt</CustomButton>
+
+        <FormControl>
+          <FormLabel>Category</FormLabel>
+          <Select
+            placeholder="Select a category"
+            color="#667085"
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            style={{
+              borderRadius: '7px',
+              border: '0.5px solid var(--dark-quaternary, rgba(255, 255, 255, 0.10))',
+              background: 'rgba(255, 255, 255, 0.05)',
+            }}
+          >
+            {categories.map((category) => (
+              <option key={category.uuid} value={category.uuid}>
+                {category.name}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
+
+        <CustomButton icon={<AddIcon />} onClick={handleAddPrompt}>
+          Add Prompt
+        </CustomButton>
       </VStack>
     </Box>
   );

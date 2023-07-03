@@ -1,11 +1,15 @@
 import React from 'react';
 import { Box, Button, Flex } from '@chakra-ui/react';
 import {
-  darkBackground, darkBackgroundBorder, lightBackground, lightBackgroundBorder,
+  darkBackground,
+  darkBackgroundBorder,
+  lightBackground,
+  lightBackgroundBorder,
 } from '../../utils/colors';
 
 interface CustomButtonProps {
-  icon?: React.ReactElement;
+  leftIcon?: React.ReactElement;
+  rightIcon?: React.ReactElement;
   size?: 'xs' | 'sm' | 'md' | 'lg';
   dark?: boolean;
   children: React.ReactNode;
@@ -29,7 +33,16 @@ const lightStyle = {
 };
 
 const CustomButton: React.FC<CustomButtonProps> = ({
-  icon, size = 'sm', dark = false, backgroundColour, flat, active, children, onClick, ...rest
+  leftIcon,
+  rightIcon,
+  size = 'sm',
+  dark = false,
+  backgroundColour,
+  flat,
+  active,
+  children,
+  onClick,
+  ...rest
 }) => (
   <Box
     className={flat ? 'flatButton' : ''}
@@ -43,24 +56,27 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     gap={8}
     outline="none"
     // eslint-disable-next-line no-nested-ternary
-    style={flat ? {} : (dark ? darkStyle : lightStyle)}
+    style={flat ? {} : dark ? darkStyle : lightStyle}
     {...rest}
   >
     <Button
       margin={0}
       size={size}
       onClick={onClick}
-      leftIcon={icon}
+      leftIcon={leftIcon}
+      rightIcon={rightIcon}
       borderRadius="7px"
       background="transparent"
+      display="flex"
+      alignItems="center"
+      width="100%"
+      justifyContent="space-between"
       color="white"
       _hover={{ background: 'transparent' }}
       _active={{ background: 'transparent' }}
       _focus={{ background: 'transparent' }}
     >
-      <Flex align="center">
-        {children}
-      </Flex>
+      <Flex align="center">{children}</Flex>
     </Button>
   </Box>
 );

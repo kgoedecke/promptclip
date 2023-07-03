@@ -57,15 +57,15 @@ body {
   width: 250px;
 }
 
-.promptOptionsHeader {
+.sidebarOptionsHeader {
   margin-top: 24px;
   margin-left: 24px;
-  padding-right: 20px;
+  padding-right: 23px;
   display: flex;
   justify-content: space-between;
 }
 
-.promptOptions {
+.sidebarOptions {
   margin-top: 12px;
   margin-left: 12px;
   padding-right: 12px;
