@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './styles.css';
 import { PromptsProvider } from './contexts/prompts.context';
+import { CategoriesProvider } from './contexts/categories.context';
 import { UpdateProvider } from './contexts/update.context';
 
 const theme = extendTheme({
@@ -22,9 +23,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <ChakraProvider theme={theme}>
       <BrowserRouter>
         <PromptsProvider>
-          <UpdateProvider>
-            <App />
-          </UpdateProvider>
+          <CategoriesProvider>
+            <UpdateProvider>
+              <App />
+            </UpdateProvider>
+          </CategoriesProvider>
         </PromptsProvider>
       </BrowserRouter>
     </ChakraProvider>

@@ -18,7 +18,7 @@ function CustomIconButton({
 }: CustomIconButtonProps) {
   return (
     <IconButton
-      icon={<Text fontSize="md" color="#5A595C" {...rest}>{iconText}</Text>}
+      icon={<Text fontSize="md" color={flat ? "#5A595C" : "white"} {...rest}>{iconText}</Text>}
       aria-label="icon-button"
       onClick={onClick}
       mr={2}

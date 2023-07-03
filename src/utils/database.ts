@@ -1,6 +1,6 @@
 import Database from 'tauri-plugin-sql-api';
 import { v4 as uuidv4 } from 'uuid';
-import { IPrompt } from '../types/Prompt.types';
+import { ICategory, IPrompt } from '../types/Prompt.types';
 
 const db = await Database.load('sqlite:prompts.db');
 
@@ -13,17 +13,55 @@ export const createPromptsTable = async () => {
       created_at INTEGER DEFAULT (strftime('%s', 'now')),
       last_used_at INTEGER DEFAULT NULL,
       used INTEGER DEFAULT 0,
-      isFavorite INTEGER DEFAULT 0
+      isFavorite INTEGER DEFAULT 0,
+      category_id TEXT,
+      FOREIGN KEY (category_id) REFERENCES categories (uuid)
+    );
+
+    CREATE TABLE IF NOT EXISTS categories (
+      uuid TEXT PRIMARY KEY,
+      name TEXT,
+      promptsCount INTEGER DEFAULT 0
     )
   `;
   await db.execute(createTableQuery);
 };
 
-export const storePrompt = async (promptName: string, prompt: string) => {
+const updateCategoryPromptsCount = async (categoryId: string) => {
+  const updateQuery = `
+    UPDATE categories
+    SET promptsCount = (
+      SELECT COUNT(*)
+      FROM prompts
+      WHERE category_id = '${categoryId}'
+    )
+    WHERE uuid = '${categoryId}'
+  `;
+  await db.execute(updateQuery);
+};
+
+export const storePrompt = async (
+  promptName: string,
+  prompt: string,
+  categoryId: string | null,
+) => {
   const uuid = uuidv4();
   const insertQuery = `
-    INSERT INTO prompts (uuid, promptName, prompt)
-    VALUES ('${uuid}', '${promptName}', '${prompt}')
+    INSERT INTO prompts (uuid, promptName, prompt, category_id)
+    VALUES ('${uuid}', '${promptName}', '${prompt}', ${categoryId ? `'${categoryId}'` : 'NULL'})
+  `;
+  await db.execute(insertQuery);
+
+  if (categoryId) {
+    await updateCategoryPromptsCount(categoryId);
+  }
+};
+
+export const insertCategory = async (name: string) => {
+  const uuid = uuidv4();
+  const insertQuery = `
+    INSERT INTO categories (uuid, name)
+    VALUES ('${uuid}', '${name}')
   `;
   await db.execute(insertQuery);
 };
@@ -33,8 +71,9 @@ export const getPrompts = async (
   favorites?: boolean,
 ): Promise<IPrompt[]> => {
   let selectQuery = `
-    SELECT * FROM prompts
-  `;
+    SELECT prompts.*, categories.name AS categoryName
+    FROM prompts
+    LEFT JOIN categories ON prompts.category_id = categories.uuid`;
 
   if (favorites !== undefined) {
     selectQuery += `
@@ -57,6 +96,17 @@ export const getPrompts = async (
   }
 
   const result: IPrompt[] = await db.select(selectQuery);
+  return result.map((prompt) => ({
+    ...prompt,
+    category: prompt.category_id ? { uuid: prompt.category_id, name: prompt.category_id } : null,
+  }));
+};
+
+export const getCategories = async (): Promise<ICategory[]> => {
+  const selectQuery = `
+    SELECT * FROM categories
+  `;
+  const result: ICategory[] = await db.select(selectQuery);
   return result;
 };
 
@@ -76,7 +126,20 @@ export const deletePrompt = async (uuid: string) => {
     WHERE uuid = '${uuid}'
   `;
 
+  const getCategoryQuery = `
+    SELECT category_id
+    FROM prompts
+    WHERE uuid = '${uuid}'
+  `;
+
+  const result: { category_id: string | null }[] = await db.select(getCategoryQuery);
+  const categoryId = result[0]?.category_id;
+
   await db.execute(deleteQuery);
+
+  if (categoryId) {
+    await updateCategoryPromptsCount(categoryId);
+  }
 };
 
 export const incrementUsageAndSetLastUsed = async (uuid: string) => {

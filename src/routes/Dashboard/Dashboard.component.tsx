@@ -11,14 +11,15 @@ import { Logo } from '../../components/Icons/PromptClipLogo';
 import SideBarButton from '../../components/SideBarButtons/SideBarButton.component';
 import { HeartIcon } from '../../components/Icons/HeartIcon';
 import CustomButton from '../../components/CustomButton/CustomButton.component';
-import ViewAllPrompts from './routes/ViewAllPrompts/ViewAllPrompts';
+import DisplayPrompts from './routes/DisplayPrompts/DisplayPrompts';
 import AddPrompt from './routes/AddPrompt/AddPrompt.component';
-import Favorites from './routes/Favorites/Favorites';
-import MostUsed from './routes/MostUsed/MostUsed';
-import RecentlyUsed from './routes/RecentlyUsed/RecentlyUsed';
-import { PromptsContext } from '../../contexts/prompts.context';
-import { getPrompts } from '../../utils/database';
+import AddCategory from './routes/AddCategory/AddCategory.component';
+import { getCategories, getPrompts } from '../../utils/database';
 import { UpdateContext } from '../../contexts/update.context';
+import { PromptsContext } from '../../contexts/prompts.context';
+import { CategoriesContext } from '../../contexts/categories.context';
+import CategoriesButton from '../../components/CategoriesButton/CategoriesButton.components';
+import CustomIconButton from '../../components/CustomIconButton/CustomIconButton.component';
 
 const routes = {
   allPrompts: '/dashboard',
@@ -26,19 +27,20 @@ const routes = {
   favorites: '/dashboard/favorites',
   recentUsed: '/dashboard/recent-used',
   mostUsed: '/dashboard/most-used',
+  addCategory: '/dashboard/add-category',
 };
 
 function Dashboard() {
   const { prompts, setPrompts } = useContext(PromptsContext);
   const { shouldUpdate } = useContext(UpdateContext);
+  const { categories, setCategories } = useContext(CategoriesContext);
 
   useEffect(() => {
     (async () => {
       setPrompts(await getPrompts('dateCreated'));
+      setCategories(await getCategories());
     })();
   }, [shouldUpdate]);
-
-  console.log(prompts);
 
   const location = useLocation();
   const nav = useNavigate();
@@ -47,21 +49,24 @@ function Dashboard() {
       <div className="leftSideBar">
         <TitleBar />
         <Logo className="logo" />
-        <div className="promptOptionsHeader">
+        <div className="sidebarOptionsHeader">
           <Text color="#787C83">Prompt</Text>
+          <CustomIconButton
+            iconText="+"
+            size="xs"
+            dark
+            flat
+            onClick={() => {
+              nav(routes.addPrompt);
+            }}
+          />
         </div>
-        <div className="promptOptions">
+        <div className="sidebarOptions">
           <SideBarButton
             icon={<EditIcon />}
             to={routes.allPrompts}
             active={location.pathname === routes.allPrompts}
             text="All Prompts"
-          />
-          <SideBarButton
-            icon={<AddIcon />}
-            to={routes.addPrompt}
-            active={location.pathname === routes.addPrompt}
-            text="Add Prompt"
           />
           <SideBarButton
             icon={<HeartIcon />}
@@ -82,6 +87,29 @@ function Dashboard() {
             text="Most used"
           />
         </div>
+        <div className="sidebarOptionsHeader">
+          <Text color="#787C83">Categories</Text>
+          <CustomIconButton
+            iconText="+"
+            size="xs"
+            dark
+            flat
+            onClick={() => {
+              nav(routes.addCategory);
+            }}
+          />
+        </div>
+        <div className="sidebarOptions">
+          {categories.map((category) => (
+            <CategoriesButton
+              key={category.uuid}
+              title={category.name}
+              count={category.promptsCount}
+              to={`/dashboard/${category.name}`}
+              active={location.pathname === `/dashboard/${category.name}`}
+            />
+          ))}
+        </div>
       </div>
       <Divider
         borderColor="rgba(255,255,255, 0.1)"
@@ -101,7 +129,7 @@ function Dashboard() {
             </Text>
           </div>
           <CustomButton
-            icon={<AddIcon />}
+            leftIcon={<AddIcon />}
             onClick={() => {
               nav(routes.addPrompt);
             }}
@@ -123,11 +151,57 @@ function Dashboard() {
         />
         <div>
           <Routes>
-            <Route path="/" element={<ViewAllPrompts prompts={prompts} setPrompts={setPrompts} />} />
+            <Route
+              path="/"
+              element={(
+                <DisplayPrompts
+                  prompts={prompts}
+                  setPrompts={setPrompts}
+                  filterOption="DateCreated"
+                />
+              )}
+            />
             <Route path="/add-prompt" element={<AddPrompt />} />
-            <Route path="/favorites" element={<Favorites prompts={prompts} />} />
-            <Route path="/recent-used" element={<RecentlyUsed prompts={prompts} />} />
-            <Route path="/most-used" element={<MostUsed prompts={prompts} />} />
+            <Route
+              path="/favorites"
+              element={(
+                <DisplayPrompts
+                  prompts={prompts}
+                  setPrompts={setPrompts}
+                  filterOption="Favorites"
+                />
+              )}
+            />
+            <Route
+              path="/recent-used"
+              element={(
+                <DisplayPrompts
+                  prompts={prompts}
+                  setPrompts={setPrompts}
+                  filterOption="RecentlyUsed"
+                />
+              )}
+            />
+            <Route
+              path="/most-used"
+              element={
+                <DisplayPrompts prompts={prompts} setPrompts={setPrompts} filterOption="MostUsed" />
+              }
+            />
+            <Route path="/add-category" element={<AddCategory />} />
+            {categories.map((category) => (
+              <Route
+                key={category.uuid}
+                path={`/${category.name}`}
+                element={(
+                  <DisplayPrompts
+                    prompts={prompts}
+                    setPrompts={setPrompts}
+                    filterOption={category}
+                  />
+                )}
+              />
+            ))}
           </Routes>
         </div>
       </div>
