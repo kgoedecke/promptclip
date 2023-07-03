@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useMemo } from 'react';
 import { IPrompt } from '../types/Prompt.types';
 
 export interface IPromptsContext {
@@ -13,10 +13,11 @@ export const PromptsContext = createContext<IPromptsContext>({
 
 export function PromptsProvider({ children }: { children: React.ReactNode }) {
   const [prompts, setPrompts] = useState<IPrompt[]>([]);
+
+  const promptsContextValue = useMemo(() => ({ prompts, setPrompts }), [prompts, setPrompts]);
+
   return (
-    // TODO: Revisit this!!
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <PromptsContext.Provider value={{ prompts, setPrompts }}>
+    <PromptsContext.Provider value={promptsContextValue}>
       {children}
     </PromptsContext.Provider>
   );

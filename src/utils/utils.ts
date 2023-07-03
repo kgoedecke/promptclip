@@ -7,6 +7,7 @@ import { listen } from '@tauri-apps/api/event';
 import { preferences, paths } from '../cache';
 import { createPromptsTable } from './database';
 import { createDashboardWindow, getDashboardWindow } from './window';
+import { IPrompt } from '../types/Prompt.types';
 
 export const fetchPreferencesData = async () => {
   const preferencesData = await readTextFile(await join(paths.get('appDataDirPath'), 'preferences.json')).then(
@@ -66,4 +67,14 @@ export const initialiseApp = async () => {
   await invoke('launch_on_login', {
     enable: preferences.get('launch_on_login'),
   });
+};
+
+export const filterPrompts = (prompts: IPrompt[], searchInput: string): IPrompt[] => {
+  const filteredPrompts = prompts.filter((prompt) => {
+    const promptNameMatches = prompt.promptName.toLowerCase().includes(searchInput.toLowerCase());
+    const promptMatches = prompt.prompt.toLowerCase().includes(searchInput.toLowerCase());
+    return promptNameMatches || promptMatches;
+  });
+
+  return filteredPrompts;
 };

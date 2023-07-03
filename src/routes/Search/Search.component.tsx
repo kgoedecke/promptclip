@@ -28,9 +28,21 @@ function Search() {
   return (
     <div className="searchWindow">
       <SearchInput />
-      <Divider width="728px" borderColor="#7D7A75" marginTop="5px" marginBottom="10px" marginLeft={0} />
+      <Divider
+        width="728px"
+        borderColor="#7D7A75"
+        marginTop="5px"
+        marginBottom="10px"
+        marginLeft={0}
+      />
       <Prompts prompts={prompts} refreshPrompts={refreshPrompts} />
-      <Divider width="728px" borderColor="#7D7A75" marginTop="5px" marginBottom="15px" marginLeft={0} />
+      <Divider
+        width="728px"
+        borderColor="#7D7A75"
+        marginTop="5px"
+        marginBottom="15px"
+        marginLeft={0}
+      />
       <Actions />
     </div>
   );

@@ -18,6 +18,7 @@ import MostUsed from './routes/MostUsed/MostUsed';
 import RecentlyUsed from './routes/RecentlyUsed/RecentlyUsed';
 import { PromptsContext } from '../../contexts/prompts.context';
 import { getPrompts } from '../../utils/database';
+import { UpdateContext } from '../../contexts/update.context';
 
 const routes = {
   allPrompts: '/dashboard',
@@ -29,11 +30,15 @@ const routes = {
 
 function Dashboard() {
   const { prompts, setPrompts } = useContext(PromptsContext);
+  const { shouldUpdate } = useContext(UpdateContext);
+
   useEffect(() => {
     (async () => {
       setPrompts(await getPrompts('dateCreated'));
     })();
-  }, [prompts]);
+  }, [shouldUpdate]);
+
+  console.log(prompts);
 
   const location = useLocation();
   const nav = useNavigate();
@@ -118,7 +123,7 @@ function Dashboard() {
         />
         <div>
           <Routes>
-            <Route path="/" element={<ViewAllPrompts prompts={prompts} />} />
+            <Route path="/" element={<ViewAllPrompts prompts={prompts} setPrompts={setPrompts} />} />
             <Route path="/add-prompt" element={<AddPrompt />} />
             <Route path="/favorites" element={<Favorites prompts={prompts} />} />
             <Route path="/recent-used" element={<RecentlyUsed prompts={prompts} />} />
