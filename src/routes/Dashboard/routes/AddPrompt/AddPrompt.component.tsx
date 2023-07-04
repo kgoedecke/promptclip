@@ -72,6 +72,7 @@ function AddPrompt() {
             placeholder="Enter your prompt text"
             value={text}
             onChange={(e) => setText(e.target.value)}
+            multiline
           />
         </FormControl>
 
