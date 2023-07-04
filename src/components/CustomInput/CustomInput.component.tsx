@@ -1,12 +1,15 @@
 import React from 'react';
-import { Input as ChakraInput, InputProps as ChakraInputProps } from '@chakra-ui/react';
+import { Textarea, TextareaProps } from '@chakra-ui/react';
 
-interface InputProps extends Omit<ChakraInputProps, 'size'> {
+interface InputProps extends Omit<TextareaProps, 'size'> {
   containerStyle?: React.CSSProperties;
   size?: 'sm' | 'md' | 'lg' | 'xs';
+  multiline?: boolean;
 }
 
-const CustomInput: React.FC<InputProps> = ({ containerStyle, size, ...rest }) => {
+const CustomInput: React.FC<InputProps> = ({
+  containerStyle, size, multiline, ...rest
+}) => {
   const mergedContainerStyle = {
     display: 'flex',
     padding: '10px 12px',
@@ -19,7 +22,16 @@ const CustomInput: React.FC<InputProps> = ({ containerStyle, size, ...rest }) =>
     ...containerStyle,
   };
 
-  return <ChakraInput size={size} {...rest} style={mergedContainerStyle} _placeholder={{ color: '#667085' }} />;
+  return (
+    <Textarea
+      size={size}
+      {...rest}
+      style={mergedContainerStyle}
+      _placeholder={{ color: '#667085' }}
+      resize={multiline ? 'vertical' : 'none'}
+      rows={multiline ? 5 : 1}
+    />
+  );
 };
 
 export default CustomInput;
