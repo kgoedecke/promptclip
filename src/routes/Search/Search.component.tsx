@@ -34,6 +34,14 @@ document.addEventListener('keydown', (e: KeyboardEvent) => {
         }
       }
     }
+  } else if (e.metaKey) {
+    // Handle CMD + 1, CMD + 2
+    const index = parseInt(e.key, 10);
+    const targetElement = promptButtons[index - 1];
+
+    if (index >= 1 && index <= promptButtons.length && targetElement) {
+      targetElement.click();
+    }
   } else if (e.type === 'keydown' && e.key !== 'Enter') {
     searchInput.focus();
   }
