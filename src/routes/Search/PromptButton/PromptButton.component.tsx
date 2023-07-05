@@ -10,13 +10,7 @@ interface IPromptProps extends IPrompt {
   index: number;
 }
 
-const copyToClipboard = async (
-  value: string,
-  e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>,
-) => {
-  if (e.type === 'keydown' && (e as React.KeyboardEvent<HTMLButtonElement>).key !== 'Enter') {
-    return;
-  }
+const copyToClipboard = async (value: string) => {
   await navigator.clipboard.writeText(value);
   await appWindow.hide();
 };
@@ -24,15 +18,14 @@ const copyToClipboard = async (
 const Prompt: React.FC<IPromptProps> = ({
   uuid, prompt, promptName, index,
 }) => {
-  const handleButtonClick = (
-    e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>,
-  ) => {
+  const handleButtonClick = () => {
+    copyToClipboard(prompt);
     incrementUsageAndSetLastUsed(uuid);
-    copyToClipboard(prompt, e);
   };
 
   return (
     <Button
+      className="prompt-button"
       width="100%"
       height="42px"
       px={3}
@@ -43,11 +36,9 @@ const Prompt: React.FC<IPromptProps> = ({
       bg="transparent"
       color="white"
       onClick={handleButtonClick}
-      onKeyDown={handleButtonClick}
       margin="5px 0"
       _hover={{ bg: '#1B1A1D' }}
-      _active={{ bg: '#1B1A1D' }}
-      _focus={{ bg: '#1B1A1D' }}
+      _focus={{ bg: '#1B1A1D', outline: 'none', boxShadow: 'none' }}
       id={uuid.toString()}
     >
       <Flex align="center">
