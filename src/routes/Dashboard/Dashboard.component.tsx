@@ -20,15 +20,8 @@ import { PromptsContext } from '../../contexts/prompts.context';
 import { CategoriesContext } from '../../contexts/categories.context';
 import CategoriesButton from '../../components/CategoriesButton/CategoriesButton.components';
 import CustomIconButton from '../../components/CustomIconButton/CustomIconButton.component';
-
-const routes = {
-  allPrompts: '/dashboard',
-  addPrompt: '/dashboard/add-prompt',
-  favorites: '/dashboard/favorites',
-  recentUsed: '/dashboard/recent-used',
-  mostUsed: '/dashboard/most-used',
-  addCategory: '/dashboard/add-category',
-};
+import { routes } from './routes/routes';
+import EditPrompt from './routes/EditPrompt/EditPrompt.component';
 
 function Dashboard() {
   const { prompts, setPrompts } = useContext(PromptsContext);
@@ -174,6 +167,7 @@ function Dashboard() {
                 />
               )}
             />
+            <Route path="/edit-prompt/:uuid" element={<EditPrompt />} />
             <Route
               path="/recent-used"
               element={(

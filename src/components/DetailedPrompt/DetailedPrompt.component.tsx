@@ -1,5 +1,6 @@
 import { Box, Text, Tag } from '@chakra-ui/react';
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { StarIcon } from '../Icons/StarsIcon';
 import { UsedForIcon } from '../Icons/UsedForIcon';
 import { IPrompt } from '../../types/Prompt.types';
@@ -8,12 +9,19 @@ import { deletePrompt, toggleFavorite } from '../../utils/database';
 import { TrashIcon } from '../Icons/TrashIcon';
 import { UpdateContext } from '../../contexts/update.context';
 import { CategoriesContext } from '../../contexts/categories.context';
+import { EditIcon } from '../Icons/EditIcon';
 
 const DetailedPrompt: React.FC<IPrompt> = ({
-  promptName, prompt, used, isFavorite, uuid, category_id,
+  promptName,
+  prompt,
+  used,
+  isFavorite,
+  uuid,
+  category_id,
 }) => {
   const { setUpdate } = useContext(UpdateContext);
   const { categories } = useContext(CategoriesContext);
+  const navigate = useNavigate();
   return (
     <div>
       <Box
@@ -46,8 +54,14 @@ const DetailedPrompt: React.FC<IPrompt> = ({
             <Text color="grey" textOverflow="ellipsis" overflow="hidden" whiteSpace="nowrap">
               {prompt}
             </Text>
-            <Tag size="sm" backgroundColor="var(--lighter-overlay-color)" color="grey" marginTop="8px">
-              {categories.find((category) => category.uuid === category_id)?.name || 'Uncategorized'}
+            <Tag
+              size="sm"
+              backgroundColor="var(--lighter-overlay-color)"
+              color="grey"
+              marginTop="8px"
+            >
+              {categories.find((category) => category.uuid === category_id)?.name
+                || 'Uncategorized'}
             </Tag>
           </div>
         </div>
@@ -56,6 +70,7 @@ const DetailedPrompt: React.FC<IPrompt> = ({
             display: 'flex',
             justifyContent: 'space-between',
             flexDirection: 'row',
+            gap: '16px',
           }}
         >
           <div
@@ -63,7 +78,6 @@ const DetailedPrompt: React.FC<IPrompt> = ({
               display: 'flex',
               justifyContent: 'space-between',
               flexDirection: 'row',
-              marginRight: '24px',
             }}
           >
             <UsedForIcon width="18px" height="18px" marginRight="4px" />
@@ -71,19 +85,18 @@ const DetailedPrompt: React.FC<IPrompt> = ({
               {used}
             </Text>
           </div>
-          {/* <EditIcon
-        marginTop="1px"
-        cursor="pointer"
-        onClick={() => {
-          console.log('Hei');
-        }}
-      /> */}
+          <EditIcon
+            cursor="pointer"
+            marginTop="1px"
+            onClick={() => {
+              navigate(`/dashboard/edit-prompt/${uuid}`);
+            }}
+          />
           <HeartIcon
             width="18px"
             height="18px"
             color={isFavorite ? 'red' : 'grey'}
             cursor="pointer"
-            marginRight="24px"
             onClick={async () => {
               await toggleFavorite(uuid, isFavorite);
               setUpdate();
@@ -102,7 +115,6 @@ const DetailedPrompt: React.FC<IPrompt> = ({
         </div>
       </Box>
     </div>
-
   );
 };
 export default DetailedPrompt;
