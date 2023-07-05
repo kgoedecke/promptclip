@@ -59,11 +59,15 @@ const Actions: React.FC = () => (
         Actions
       </Text>
 
-      <ActionOption text="Copy Selected" iconText="↵" dark marginTop="4px" />
-
-      <ActionOption text="New Prompt" iconText={['⌘', 'N']} dark />
-
-      <ActionOption text="Delete Selected" iconText={['⌘', '⌫']} dark />
+      <div
+        style={{
+          display: 'flex',
+          gap: '20px',
+        }}
+      >
+        <ActionOption text="Copy Selected" iconText="↵" dark marginTop="4px" />
+        <ActionOption text="New Prompt" iconText={['⌘', 'N']} dark />
+      </div>
     </Flex>
   </div>
 );
