@@ -8,7 +8,14 @@ import { filterPrompts } from '../../../../utils/utils';
 interface DisplayPromptsProps {
   prompts: IPrompt[];
   setPrompts: (prompts: IPrompt[]) => void;
-  filterOption?: 'DateCreated' | 'Favorites' | 'MostUsed' | 'RecentlyUsed' | 'AllPrompts' | ICategory | null;
+  filterOption?:
+  | 'DateCreated'
+  | 'Favorites'
+  | 'MostUsed'
+  | 'RecentlyUsed'
+  | 'AllPrompts'
+  | ICategory
+  | null;
 }
 
 const DisplayPrompts = ({ prompts, filterOption }: DisplayPromptsProps) => {
@@ -46,7 +53,8 @@ const DisplayPrompts = ({ prompts, filterOption }: DisplayPromptsProps) => {
     }
     if (typeof filterOption === 'string') {
       return filterOption;
-    } if (filterOption instanceof Object && filterOption.name) {
+    }
+    if (filterOption instanceof Object && filterOption.name) {
       return filterOption.name;
     }
 
@@ -55,9 +63,7 @@ const DisplayPrompts = ({ prompts, filterOption }: DisplayPromptsProps) => {
 
   return (
     <div>
-      <Text fontWeight="bold">
-        {getFilterOptionLabel()}
-      </Text>
+      <Text fontWeight="bold">{getFilterOptionLabel()}</Text>
       <CustomInput
         placeholder="Search"
         marginTop="16px"
@@ -66,9 +72,11 @@ const DisplayPrompts = ({ prompts, filterOption }: DisplayPromptsProps) => {
           setSortedPrompts(searchResults);
         }}
       />
-      {sortedPrompts.map((prompt, index) => (
-        <DetailedPrompt key={index} {...prompt} />
-      ))}
+      <div style={{ overflowY: 'auto', maxHeight: '500px' }}>
+        {sortedPrompts.map((prompt, index) => (
+          <DetailedPrompt key={index} {...prompt} />
+        ))}
+      </div>
     </div>
   );
 };
