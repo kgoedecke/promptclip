@@ -100,15 +100,17 @@ function Dashboard() {
           />
         </div>
         <div className="sidebarOptions">
-          {categories.map((category) => (
-            <CategoriesButton
-              key={category.uuid}
-              title={category.name}
-              count={category.promptsCount}
-              to={`/dashboard/${category.name}`}
-              active={location.pathname === `/dashboard/${category.name}`}
-            />
-          ))}
+          <div style={{ overflowY: 'auto', maxHeight: '340px' }}>
+            {categories.map((category) => (
+              <CategoriesButton
+                key={category.uuid}
+                title={category.name}
+                count={category.promptsCount}
+                to={`/dashboard/${category.name}`}
+                active={location.pathname === `/dashboard/${category.name}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
       <Divider
