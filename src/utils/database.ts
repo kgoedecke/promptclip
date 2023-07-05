@@ -40,6 +40,18 @@ const updateCategoryPromptsCount = async (categoryId: string) => {
   await db.execute(updateQuery);
 };
 
+export const updateAllCategoryPromptsCounts = async () => {
+  const selectQuery = `
+    SELECT uuid
+    FROM categories
+  `;
+  const categories: { uuid: string }[] = await db.select(selectQuery);
+
+  categories.forEach(async (category) => {
+    await updateCategoryPromptsCount(category.uuid);
+  });
+};
+
 export const storePrompt = async (
   promptName: string,
   prompt: string,
@@ -55,6 +67,20 @@ export const storePrompt = async (
   if (categoryId) {
     await updateCategoryPromptsCount(categoryId);
   }
+};
+
+export const updatePrompt = async (prompt: IPrompt) => {
+  const updateQuery = `
+    UPDATE prompts
+    SET
+      promptName = '${prompt.promptName}',
+      prompt = '${prompt.prompt}',
+      category_id = ${prompt.category_id ? `'${prompt.category_id}'` : 'NULL'}
+    WHERE uuid = '${prompt.uuid}'
+  `;
+
+  await db.execute(updateQuery);
+  await updateAllCategoryPromptsCounts();
 };
 
 export const insertCategory = async (name: string) => {
@@ -100,6 +126,33 @@ export const getPrompts = async (
     ...prompt,
     category: prompt.category_id ? { uuid: prompt.category_id, name: prompt.category_id } : null,
   }));
+};
+
+export const getPromptByUUID = async (uuid: string): Promise<IPrompt | null> => {
+  const selectQuery = `
+    SELECT prompts.*, categories.name AS categoryName
+    FROM prompts
+    LEFT JOIN categories ON prompts.category_id = categories.uuid
+    WHERE prompts.uuid = '${uuid}'
+  `;
+
+  const result: (IPrompt & { categoryName: string })[] = await db.select(selectQuery);
+
+  if (result.length > 0) {
+    const prompt = result[0];
+    return {
+      uuid: prompt.uuid,
+      promptName: prompt.promptName,
+      prompt: prompt.prompt,
+      created_at: prompt.created_at,
+      last_used_at: prompt.last_used_at,
+      used: prompt.used,
+      isFavorite: prompt.isFavorite,
+      category_id: prompt.category_id,
+    };
+  }
+
+  return null;
 };
 
 export const getCategories = async (): Promise<ICategory[]> => {
