@@ -27,6 +27,7 @@ function CategoriesButton({
             size="xs"
             flat={!active}
             dark={!active}
+            backgroundColour={!active ? 'var(--light-overlay-color)' : undefined}
           />
         )}
       >

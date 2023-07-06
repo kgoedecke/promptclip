@@ -47,7 +47,7 @@ function Dashboard() {
           <CustomIconButton
             iconText="+"
             size="xs"
-            dark
+            backgroundColour="var(--light-overlay-color)"
             flat
             onClick={() => {
               nav(routes.addPrompt);
@@ -85,7 +85,7 @@ function Dashboard() {
           <CustomIconButton
             iconText="+"
             size="xs"
-            dark
+            backgroundColour="var(--light-overlay-color)"
             flat
             onClick={() => {
               nav(routes.addCategory);
