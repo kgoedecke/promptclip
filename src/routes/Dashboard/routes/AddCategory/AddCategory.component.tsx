@@ -37,8 +37,18 @@ function AddCategory() {
       });
       return;
     }
-
-    await insertCategory(categorySlug);
+    try {
+      await insertCategory(categorySlug);
+    } catch (err) {
+      toast({
+        title: 'Error',
+        description: 'Category already exists.',
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+      });
+      return;
+    }
     toast({
       title: 'Category added.',
       description: "We've added the category for you.",
