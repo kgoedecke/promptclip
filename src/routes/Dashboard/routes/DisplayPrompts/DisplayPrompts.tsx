@@ -88,7 +88,7 @@ const DisplayPrompts = ({ prompts, filterOption }: DisplayPromptsProps) => {
           setSortedPrompts(searchResults);
         }}
       />
-      <div style={{ overflowY: 'auto', maxHeight: '500px', marginTop: '8px' }}>
+      <div className="detailedPromptsContainer">
         {sortedPrompts.map((prompt, index) => (
           <DetailedPrompt key={index} {...prompt} />
         ))}

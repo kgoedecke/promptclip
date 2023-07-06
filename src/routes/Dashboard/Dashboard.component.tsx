@@ -93,7 +93,7 @@ function Dashboard() {
           />
         </div>
         <div className="sidebarOptions">
-          <div style={{ overflowY: 'auto', maxHeight: '340px' }}>
+          <div className="categoriesOptions">
             {categories.map((category) => (
               <CategoriesButton
                 key={category.uuid}
@@ -140,7 +140,7 @@ function Dashboard() {
           orientation="horizontal"
           style={{
             position: 'relative',
-            left: '-32px',
+            left: '-20px',
             width: 'calc(100% + 64px)',
           }}
         />

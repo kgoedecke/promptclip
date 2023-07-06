@@ -25,7 +25,10 @@ export const createDashboardWindow = async () => {
   const DashboardWindow = new WebviewWindow('dashboard', {
     url: '/dashboard',
     title: 'PromptClip',
-    resizable: false,
+    resizable: true,
+    minHeight: 722,
+    minWidth: 1000,
+    maximizable: true,
     transparent: true,
     decorations: false,
   });

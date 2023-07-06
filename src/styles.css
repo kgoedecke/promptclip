@@ -5,7 +5,6 @@
   --light-overlay-color: rgba(255, 255, 255, 0.1);
   --lighter-overlay-color: rgba(200, 200, 200, 0.04);
   font-synthesis: none;
-  overflow: hidden;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -14,8 +13,11 @@
 
 body {
   padding: 0;
+  -webkit-user-select: none;
+  user-select: none !important;
   margin: 0;
   overflow: hidden;
+  cursor: default;
 }
 
 .seperator {
@@ -49,7 +51,8 @@ body {
 .dashboardWindow {
   color: white;
   background-color: var(--app-bg-color);
-  height: 722px;
+  min-height: 722px;
+  height: 100vh;
   border-radius: 10px;
   display: flex;
 }
@@ -70,6 +73,17 @@ body {
   margin-top: 12px;
   margin-left: 12px;
   padding-right: 12px;
+}
+
+.categoriesOptions {
+  overflow-y: auto; 
+  max-height: calc(100vh - 380px);
+}
+
+.detailedPromptsContainer {
+  overflow-y: auto;
+  max-height: calc(100vh - 218px);
+  margin-top: 8px;
 }
 
 .titlebar {
