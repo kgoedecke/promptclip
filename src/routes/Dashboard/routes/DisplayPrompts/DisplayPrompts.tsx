@@ -22,10 +22,6 @@ const DisplayPrompts = ({ prompts, filterOption }: DisplayPromptsProps) => {
   const [sortedPrompts, setSortedPrompts] = useState(prompts);
 
   useEffect(() => {
-    setSortedPrompts(prompts);
-  }, [prompts]);
-
-  useEffect(() => {
     if (filterOption) {
       let filteredPrompts = prompts;
 
@@ -43,7 +39,9 @@ const DisplayPrompts = ({ prompts, filterOption }: DisplayPromptsProps) => {
         filteredPrompts = prompts.filter((prompt) => prompt.category_id === filterOption.uuid);
       }
 
-      setSortedPrompts(filteredPrompts);
+      setSortedPrompts([...filteredPrompts]);
+    } else {
+      setSortedPrompts([...prompts]);
     }
   }, [filterOption, prompts]);
 
@@ -57,7 +55,6 @@ const DisplayPrompts = ({ prompts, filterOption }: DisplayPromptsProps) => {
     if (filterOption instanceof Object && filterOption.name) {
       return filterOption.name;
     }
-
     return 'All Prompts';
   };
 
