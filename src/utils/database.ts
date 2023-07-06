@@ -84,6 +84,17 @@ export const updatePrompt = async (prompt: IPrompt) => {
 };
 
 export const insertCategory = async (name: string) => {
+  const existingCategoryQuery = `
+    SELECT uuid
+    FROM categories
+    WHERE name = '${name}'
+  `;
+  const existingCategory: ICategory[] = await db.select(existingCategoryQuery);
+
+  if (existingCategory.length > 0) {
+    throw new Error('Category with the same name already exists.');
+  }
+
   const uuid = uuidv4();
   const insertQuery = `
     INSERT INTO categories (uuid, name)
