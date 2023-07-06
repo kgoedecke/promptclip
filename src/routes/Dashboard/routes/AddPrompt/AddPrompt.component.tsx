@@ -26,16 +26,17 @@ function AddPrompt() {
   }, []);
 
   const handleAddPrompt = async () => {
-    if (title === '' || text === '') {
+    if (!title.trim() || !text.trim()) {
       toast({
         title: 'Error',
-        description: 'Please enter a title and text.',
+        description: 'Please enter a valid title and text.',
         status: 'error',
         duration: 4000,
         isClosable: true,
       });
       return;
     }
+
     await storePrompt(title, text, selectedCategory || null);
     toast({
       title: 'Prompt added.',
