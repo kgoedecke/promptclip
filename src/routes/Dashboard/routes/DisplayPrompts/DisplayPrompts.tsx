@@ -1,9 +1,10 @@
 import { Text } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import DetailedPrompt from '../../../../components/DetailedPrompt/DetailedPrompt.component';
 import CustomInput from '../../../../components/CustomInput/CustomInput.component';
 import { IPrompt, ICategory } from '../../../../types/Prompt.types';
 import { filterPrompts } from '../../../../utils/utils';
+import { UpdateContext } from '../../../../contexts/update.context';
 
 interface DisplayPromptsProps {
   prompts: IPrompt[];
@@ -20,6 +21,7 @@ interface DisplayPromptsProps {
 
 const DisplayPrompts = ({ prompts, filterOption }: DisplayPromptsProps) => {
   const [sortedPrompts, setSortedPrompts] = useState(prompts);
+  const { setUpdate } = useContext(UpdateContext);
 
   useEffect(() => {
     if (filterOption) {
@@ -60,7 +62,24 @@ const DisplayPrompts = ({ prompts, filterOption }: DisplayPromptsProps) => {
 
   return (
     <div>
-      <Text fontWeight="bold">{getFilterOptionLabel()}</Text>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Text fontWeight="bold">{getFilterOptionLabel()}</Text>
+        <Text
+          fontWeight="light"
+          color="grey"
+          cursor="pointer"
+          onClick={() => {
+            setUpdate();
+          }}
+        >
+          Refresh
+        </Text>
+      </div>
       <CustomInput
         placeholder="Search"
         marginTop="16px"
