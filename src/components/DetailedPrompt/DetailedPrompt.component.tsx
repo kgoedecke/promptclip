@@ -21,6 +21,7 @@ const DetailedPrompt: React.FC<IPrompt> = ({
 }) => {
   const { setUpdate } = useContext(UpdateContext);
   const { categories } = useContext(CategoriesContext);
+  const promptCategory = categories.find((category) => category.uuid === category_id)?.name;
   const navigate = useNavigate();
   return (
     <div>
@@ -32,7 +33,7 @@ const DetailedPrompt: React.FC<IPrompt> = ({
           backgroundColor: 'var(--lighter-overlay-color)',
           borderRadius: '10px',
           padding: '16px',
-          marginTop: '16px',
+          marginTop: '8px',
         }}
       >
         <div
@@ -51,18 +52,19 @@ const DetailedPrompt: React.FC<IPrompt> = ({
             <Text fontWeight="bold" color="white">
               {promptName}
             </Text>
-            <Text color="grey" textOverflow="ellipsis" overflow="hidden" whiteSpace="nowrap">
+            <Text color="white" opacity="60%" textOverflow="ellipsis" overflow="hidden" whiteSpace="nowrap">
               {prompt}
             </Text>
-            <Tag
-              size="sm"
-              backgroundColor="var(--lighter-overlay-color)"
-              color="grey"
-              marginTop="8px"
-            >
-              {categories.find((category) => category.uuid === category_id)?.name
-                || 'Uncategorized'}
-            </Tag>
+            {promptCategory && (
+              <Tag
+                size="sm"
+                backgroundColor="var(--lighter-overlay-color)"
+                color="grey"
+                marginTop="8px"
+              >
+                {promptCategory}
+              </Tag>
+            )}
           </div>
         </div>
         <div
