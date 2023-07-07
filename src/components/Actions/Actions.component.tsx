@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex, Text } from '@chakra-ui/react';
-import CustomIconButton from '../../../components/CustomIconButton/CustomIconButton.component';
+import CustomIconButton from '../CustomIconButton/CustomIconButton.component';
 
 type ActionOptionProps = {
   text: string;

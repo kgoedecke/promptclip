@@ -11,8 +11,8 @@ import { Logo } from '../../components/Icons/PromptClipLogo';
 import SideBarButton from '../../components/SideBarButtons/SideBarButton.component';
 import { HeartIcon } from '../../components/Icons/HeartIcon';
 import CustomButton from '../../components/CustomButton/CustomButton.component';
-import DisplayPrompts from './routes/DisplayPrompts/DisplayPrompts';
-import AddPrompt from './routes/AddPrompt/AddPrompt.component';
+import DisplayPrompts from './routes/DisplayPrompts/DisplayPrompts.route';
+import AddPrompt from './routes/AddPrompt/AddPrompt.route';
 import AddCategory from './routes/AddCategory/AddCategory.component';
 import { getCategories, getPrompts } from '../../utils/database';
 import { UpdateContext } from '../../contexts/update.context';
@@ -21,7 +21,9 @@ import { CategoriesContext } from '../../contexts/categories.context';
 import CategoriesButton from '../../components/CategoriesButton/CategoriesButton.components';
 import CustomIconButton from '../../components/CustomIconButton/CustomIconButton.component';
 import { routes } from './routes/routes';
-import EditPrompt from './routes/EditPrompt/EditPrompt.component';
+import EditPrompt from './routes/EditPrompt/EditPrompt.route.component';
+import SettingsIcon from '../../components/Icons/SettingsIcon';
+import Settings from './routes/Settings/Settings.route';
 
 function Dashboard() {
   const { prompts, setPrompts } = useContext(PromptsContext);
@@ -123,14 +125,30 @@ function Dashboard() {
               Manage all your AI prompts in one place
             </Text>
           </div>
-          <CustomButton
-            leftIcon={<AddIcon />}
-            onClick={() => {
-              nav(routes.addPrompt);
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '16px',
             }}
           >
-            Add New
-          </CustomButton>
+            <CustomButton
+              leftIcon={<AddIcon />}
+              onClick={() => {
+                nav(routes.addPrompt);
+              }}
+            >
+              Add New Prompt
+            </CustomButton>
+            <SettingsIcon
+              width="24px"
+              height="24px"
+              cursor="pointer"
+              onClick={() => {
+                nav(routes.settings);
+              }}
+            />
+          </div>
         </div>
         <Divider
           borderColor="rgba(255,255,255, 0.1)"
@@ -156,6 +174,7 @@ function Dashboard() {
                 />
               )}
             />
+            <Route path="/settings" element={<Settings />} />
             <Route path="/add-prompt" element={<AddPrompt />} />
             <Route
               path="/favorites"

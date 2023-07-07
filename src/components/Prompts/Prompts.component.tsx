@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text } from '@chakra-ui/react';
-import { IPrompt } from '../../../types/Prompt.types';
+import { IPrompt } from '../../types/Prompt.types';
 import Prompt from '../PromptButton/PromptButton.component';
 
 const Prompts: React.FC<{ prompts: IPrompt[]; refreshPrompts: () => void }> = ({
