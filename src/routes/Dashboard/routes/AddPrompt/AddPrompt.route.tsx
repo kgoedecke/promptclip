@@ -52,7 +52,7 @@ function AddPrompt() {
   };
 
   return (
-    <Box borderRadius="md">
+    <Box borderRadius="md" overflowY="auto" maxHeight="calc(100vh - 127px)">
       <VStack spacing={4} align="start">
         <FormControl>
           <Text fontWeight="bold">Add New Prompt</Text>
@@ -64,6 +64,7 @@ function AddPrompt() {
             placeholder="Write your prompt title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            autoFocus
           />
         </FormControl>
 
