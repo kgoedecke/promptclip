@@ -2,7 +2,11 @@ import Database from 'tauri-plugin-sql-api';
 import { v4 as uuidv4 } from 'uuid';
 import { ICategory, IPrompt } from '../types/Prompt.types';
 
-const db = await Database.load('sqlite:prompts.db');
+let db: Database;
+
+(async () => {
+  db = await Database.load('sqlite:prompts.db');
+})();
 
 export const createPromptsTable = async () => {
   const createTableQuery = `
