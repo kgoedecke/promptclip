@@ -103,6 +103,37 @@ export const insertCategory = async (name: string) => {
   await db.execute(insertQuery);
 };
 
+export const updateCategory = async (uuid: string, newName: string) => {
+  const existingCategoryQuery = `
+    SELECT uuid
+    FROM categories
+    WHERE uuid = '${uuid}'
+  `;
+  const existingCategory: ICategory[] = await db.select(existingCategoryQuery);
+
+  if (existingCategory.length === 0) {
+    throw new Error('Category with the provided UUID does not exist.');
+  }
+
+  const updateQuery = `
+    UPDATE categories
+    SET name = '${newName}'
+    WHERE uuid = '${uuid}'
+  `;
+  await db.execute(updateQuery);
+};
+
+export const getCategoryByUUID = async (uuid: string): Promise<ICategory | null> => {
+  const query = `
+    SELECT *
+    FROM categories
+    WHERE uuid = '${uuid}'
+    LIMIT 1
+  `;
+  const result: ICategory[] = await db.select(query);
+  return result.length > 0 ? result[0] : null;
+};
+
 export const getPrompts = async (
   filter: 'lastUsed' | 'used' | 'dateCreated',
   favorites?: boolean,
