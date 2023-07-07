@@ -6,4 +6,5 @@ export const routes = {
   mostUsed: '/dashboard/most-used',
   addCategory: '/dashboard/add-category',
   editPrompt: '/dashboard/edit-prompt',
+  settings: '/dashboard/settings',
 };

@@ -19,6 +19,7 @@ tauri = { version = "1.4", features = [ "window-minimize", "window-maximize", "w
 directories = "4.0.1"
 auto-launch = "0.4.0"
 window-vibrancy = "0.3.2"
+tauri-plugin-store = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
 
 [target."cfg(target_os = \"macos\")".dependencies]
 core-graphics = {version = "0.22.3"}

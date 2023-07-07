@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { Divider } from '@chakra-ui/react';
 import { getPrompts } from '../../utils/database';
-import SearchInput from './SearchInput/SearchInput.component';
-import Actions from './Actions/Actions.component';
-import Prompts from './Prompts/Prompts.component';
+import SearchInput from '../../components/SearchInput/SearchInput.component';
+import Actions from '../../components/Actions/Actions.component';
+import Prompts from '../../components/Prompts/Prompts.component';
 import { PromptsContext } from '../../contexts/prompts.context';
 import { setWindowSizeToBody } from '../../utils/window';
 

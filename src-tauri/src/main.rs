@@ -11,17 +11,17 @@ use tauri::{
 #[allow(unused_imports)]
 use window_vibrancy::{apply_vibrancy, NSVisualEffectMaterial};
 
-use util::{create_preferences_if_missing, launch_on_login};
+use util::launch_on_login;
 
 fn create_system_tray() -> SystemTray {
     let quit = CustomMenuItem::new("Quit".to_string(), "Quit");
     let show = CustomMenuItem::new("Show".to_string(), "Show");
     let hide = CustomMenuItem::new("Hide".to_string(), "Hide");
-    let preferences = CustomMenuItem::new("Preferences".to_string(), "Preferences");
+    let dashboard = CustomMenuItem::new("Dashboard".to_string(), "Dashboard");
     let tray_menu = SystemTrayMenu::new()
         .add_item(show)
         .add_item(hide)
-        .add_item(preferences)
+        .add_item(dashboard)
         .add_native_item(SystemTrayMenuItem::Separator)
         .add_item(quit);
     SystemTray::new().with_menu(tray_menu)
@@ -35,8 +35,8 @@ fn apply_vibrancy_to_dashboard(window: Window) {
 }
 
 fn main() {
-    create_preferences_if_missing();
     tauri::Builder::default()
+        .plugin(tauri_plugin_store::Builder::default().build())
         .plugin(tauri_plugin_sql::Builder::default().build())
         .invoke_handler(tauri::generate_handler![
             launch_on_login,
@@ -68,7 +68,7 @@ fn main() {
                     window.show().unwrap();
                     window.center().unwrap();
                 }
-                "Preferences" => {
+                "Dashboard" => {
                     let window = app.get_window("main").unwrap();
                     window.emit("showDashboard", Some("Yes")).unwrap();
                     window.show().unwrap();

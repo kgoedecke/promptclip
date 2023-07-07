@@ -1,9 +1,9 @@
 import { SearchIcon } from '@chakra-ui/icons';
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import React from 'react';
-import { searchPrompts } from '../../../utils/database';
-import { PromptsContext } from '../../../contexts/prompts.context';
-import { IPrompt } from '../../../types/Prompt.types';
+import { searchPrompts } from '../../utils/database';
+import { PromptsContext } from '../../contexts/prompts.context';
+import { IPrompt } from '../../types/Prompt.types';
 
 const onSearchInputChanged = async (
   event: React.ChangeEvent<HTMLInputElement>,

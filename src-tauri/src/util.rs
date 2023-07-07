@@ -1,6 +1,4 @@
-mod preferences;
 use auto_launch::AutoLaunchBuilder;
-pub use preferences::create_preferences_if_missing;
 
 #[tauri::command]
 pub fn launch_on_login(enable: bool) -> bool {

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button, Flex, Text } from '@chakra-ui/react';
 import { appWindow } from '@tauri-apps/api/window';
-import { StarIcon } from '../../../components/Icons/StarsIcon';
-import CustomIconButton from '../../../components/CustomIconButton/CustomIconButton.component';
-import { incrementUsageAndSetLastUsed } from '../../../utils/database';
-import { IPrompt } from '../../../types/Prompt.types';
+import { StarIcon } from '../Icons/StarsIcon';
+import CustomIconButton from '../CustomIconButton/CustomIconButton.component';
+import { incrementUsageAndSetLastUsed } from '../../utils/database';
+import { IPrompt } from '../../types/Prompt.types';
 
 interface IPromptProps extends IPrompt {
   index: number;
