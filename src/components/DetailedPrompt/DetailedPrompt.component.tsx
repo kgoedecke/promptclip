@@ -10,6 +10,7 @@ import { TrashIcon } from '../Icons/TrashIcon';
 import { UpdateContext } from '../../contexts/update.context';
 import { CategoriesContext } from '../../contexts/categories.context';
 import { EditIcon } from '../Icons/EditIcon';
+import { routes } from '../../routes/Dashboard/routes/routes';
 
 const DetailedPrompt: React.FC<IPrompt> = ({
   promptName,
@@ -91,7 +92,7 @@ const DetailedPrompt: React.FC<IPrompt> = ({
             cursor="pointer"
             marginTop="1px"
             onClick={() => {
-              navigate(`/dashboard/edit-prompt/${uuid}`);
+              navigate(`${routes.editPrompt}/${uuid}`);
             }}
           />
           <HeartIcon

@@ -1,10 +1,12 @@
 import { Text } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DetailedPrompt from '../../../../components/DetailedPrompt/DetailedPrompt.component';
 import CustomInput from '../../../../components/CustomInput/CustomInput.component';
 import { IPrompt, ICategory } from '../../../../types/Prompt.types';
 import { filterPrompts } from '../../../../utils/utils';
 import { UpdateContext } from '../../../../contexts/update.context';
+import { routes } from '../routes';
 
 interface DisplayPromptsProps {
   prompts: IPrompt[];
@@ -22,6 +24,7 @@ interface DisplayPromptsProps {
 const DisplayPrompts = ({ prompts, filterOption }: DisplayPromptsProps) => {
   const [sortedPrompts, setSortedPrompts] = useState(prompts);
   const { setUpdate } = useContext(UpdateContext);
+  const nav = useNavigate();
 
   useEffect(() => {
     if (filterOption) {
@@ -69,16 +72,30 @@ const DisplayPrompts = ({ prompts, filterOption }: DisplayPromptsProps) => {
         }}
       >
         <Text fontWeight="bold">{getFilterOptionLabel()}</Text>
-        <Text
-          fontWeight="light"
-          color="grey"
-          cursor="pointer"
-          onClick={() => {
-            setUpdate();
-          }}
-        >
-          Refresh
-        </Text>
+        <div style={{ display: 'flex', gap: '24px' }}>
+          <Text
+            // fontWeight="light"
+            color="grey"
+            cursor="pointer"
+            onClick={() => {
+              setUpdate();
+            }}
+          >
+            Refresh
+          </Text>
+          {filterOption instanceof Object && filterOption.name && (
+            <Text
+              // fontWeight="light"
+              color="grey"
+              cursor="pointer"
+              onClick={() => {
+                nav(`${routes.editCategory}/${filterOption.uuid}`);
+              }}
+            >
+              Edit Category
+            </Text>
+          )}
+        </div>
       </div>
       <CustomInput
         placeholder="Search"

@@ -21,9 +21,10 @@ import { CategoriesContext } from '../../contexts/categories.context';
 import CategoriesButton from '../../components/CategoriesButton/CategoriesButton.components';
 import CustomIconButton from '../../components/CustomIconButton/CustomIconButton.component';
 import { routes } from './routes/routes';
-import EditPrompt from './routes/EditPrompt/EditPrompt.route.component';
+import EditPrompt from './routes/EditPrompt/EditPrompt.route';
 import SettingsIcon from '../../components/Icons/SettingsIcon';
 import Settings from './routes/Settings/Settings.route';
+import EditCategory from './routes/EditCategory/EditCategory.route';
 
 function Dashboard() {
   const { prompts, setPrompts } = useContext(PromptsContext);
@@ -187,6 +188,7 @@ function Dashboard() {
               )}
             />
             <Route path="/edit-prompt/:uuid" element={<EditPrompt />} />
+            <Route path="/edit-category/:uuid" element={<EditCategory />} />
             <Route
               path="/recent-used"
               element={(
