@@ -73,6 +73,7 @@ function AddCategory() {
             placeholder="Enter the category name"
             value={categoryName}
             onChange={(e) => setCategoryName(e.target.value)}
+            autoFocus
           />
         </FormControl>
 
