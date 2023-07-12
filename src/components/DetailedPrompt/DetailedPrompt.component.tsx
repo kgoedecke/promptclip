@@ -1,16 +1,16 @@
+import React, { useContext } from 'react';
 import { Box, Text, Tag } from '@chakra-ui/react';
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { StarIcon } from '../Icons/StarsIcon';
-import { UsedForIcon } from '../Icons/UsedForIcon';
 import { IPrompt } from '../../types/Prompt.types';
-import { HeartIcon } from '../Icons/HeartIcon';
 import { deletePrompt, toggleFavorite } from '../../utils/database';
-import { TrashIcon } from '../Icons/TrashIcon';
 import { UpdateContext } from '../../contexts/update.context';
 import { CategoriesContext } from '../../contexts/categories.context';
-import { EditIcon } from '../Icons/EditIcon';
 import { routes } from '../../routes/Dashboard/routes/routes';
+import { StarIcon } from '../Icons/StarsIcon';
+import { UsedForIcon } from '../Icons/UsedForIcon';
+import { HeartIcon } from '../Icons/HeartIcon';
+import { TrashIcon } from '../Icons/TrashIcon';
+import { EditIcon } from '../Icons/EditIcon';
 
 const DetailedPrompt: React.FC<IPrompt> = ({
   promptName,
@@ -24,6 +24,21 @@ const DetailedPrompt: React.FC<IPrompt> = ({
   const { categories } = useContext(CategoriesContext);
   const promptCategory = categories.find((category) => category.uuid === category_id)?.name;
   const navigate = useNavigate();
+
+  const handleEditPrompt = () => {
+    navigate(`${routes.editPrompt}/${uuid}`);
+  };
+
+  const handleToggleFavorite = async () => {
+    await toggleFavorite(uuid, isFavorite);
+    setUpdate();
+  };
+
+  const handleDeletePrompt = async () => {
+    await deletePrompt(uuid);
+    setUpdate();
+  };
+
   return (
     <div>
       <Box
@@ -91,33 +106,26 @@ const DetailedPrompt: React.FC<IPrompt> = ({
           <EditIcon
             cursor="pointer"
             marginTop="1px"
-            onClick={() => {
-              navigate(`${routes.editPrompt}/${uuid}`);
-            }}
+            onClick={handleEditPrompt}
           />
           <HeartIcon
             width="18px"
             height="18px"
             color={isFavorite ? 'red' : 'grey'}
             cursor="pointer"
-            onClick={async () => {
-              await toggleFavorite(uuid, isFavorite);
-              setUpdate();
-            }}
+            onClick={handleToggleFavorite}
           />
           <TrashIcon
             width="18px"
             height="18px"
             cursor="pointer"
             color="grey"
-            onClick={async () => {
-              await deletePrompt(uuid);
-              setUpdate();
-            }}
+            onClick={handleDeletePrompt}
           />
         </div>
       </Box>
     </div>
   );
 };
+
 export default DetailedPrompt;

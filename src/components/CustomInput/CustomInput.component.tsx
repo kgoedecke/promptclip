@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { Textarea, TextareaProps } from '@chakra-ui/react';
 
 interface InputProps extends Omit<TextareaProps, 'size'> {
-  containerStyle?: React.CSSProperties;
+  containerStyle?: CSSProperties;
   size?: 'sm' | 'md' | 'lg' | 'xs';
   multiline?: boolean;
 }
@@ -10,7 +10,7 @@ interface InputProps extends Omit<TextareaProps, 'size'> {
 const CustomInput: React.FC<InputProps> = ({
   containerStyle, size, multiline, ...rest
 }) => {
-  const mergedContainerStyle = {
+  const mergedContainerStyle: CSSProperties = {
     display: 'flex',
     padding: '10px 12px',
     alignItems: 'center',
