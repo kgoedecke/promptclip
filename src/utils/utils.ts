@@ -1,11 +1,13 @@
 import { appWindow } from '@tauri-apps/api/window';
-import { register } from '@tauri-apps/api/globalShortcut';
 import { invoke } from '@tauri-apps/api/tauri';
 import { listen } from '@tauri-apps/api/event';
 import { Store } from 'tauri-plugin-store-api';
+import { register, unregister } from '@tauri-apps/api/globalShortcut';
 import { createPromptsTable } from './database';
 import { createDashboardWindow, getDashboardWindow } from './window';
 import { IPrompt } from '../types/Prompt.types';
+
+export const store = new Store('.settings.dat');
 
 export const listenForHotkey = async (shortcut: string) => {
   await register(shortcut, async () => {
@@ -19,17 +21,24 @@ export const listenForHotkey = async (shortcut: string) => {
   });
 };
 
-const createSettings = async (store: Store) => {
+const createSettings = async () => {
   if (!(await store.get('shortcut'))) {
     await store.set('shortcut', 'Command+Shift+G');
     await store.set('launch_on_login', true);
+    await store.save();
   }
+};
+
+export const updateShortcut = async (shortcut: string) => {
+  unregister(await store.get('shortcut') as string);
+  await store.set('shortcut', shortcut);
+  await store.save();
+  await listenForHotkey(shortcut);
 };
 
 export const initialiseApp = async () => {
   await createPromptsTable();
-  const store = new Store('.settings.dat');
-  await createSettings(store);
+  await createSettings();
   await invoke('init_ns_panel', {
     appShortcut: await store.get('shortcut'),
   });

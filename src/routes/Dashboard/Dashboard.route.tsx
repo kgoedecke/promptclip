@@ -1,3 +1,4 @@
+import { useEffect, useContext } from 'react';
 import { Divider, Text } from '@chakra-ui/react';
 import {
   AddIcon, EditIcon, RepeatClockIcon, StarIcon,
@@ -5,7 +6,6 @@ import {
 import {
   Routes, Route, useLocation, useNavigate,
 } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
 import TitleBar from '../../components/TitleBar/TitleBar.component';
 import { Logo } from '../../components/Icons/PromptClipLogo';
 import SideBarButton from '../../components/SideBarButtons/SideBarButton.component';
@@ -40,6 +40,19 @@ function Dashboard() {
 
   const location = useLocation();
   const nav = useNavigate();
+
+  const handleAddPromptClick = () => {
+    nav(routes.addPrompt);
+  };
+
+  const handleAddCategoryClick = () => {
+    nav(routes.addCategory);
+  };
+
+  const handleSettingsClick = () => {
+    nav(routes.settings);
+  };
+
   return (
     <div className="dashboardWindow">
       <div className="leftSideBar">
@@ -52,9 +65,7 @@ function Dashboard() {
             size="xs"
             backgroundColour="var(--light-overlay-color)"
             flat
-            onClick={() => {
-              nav(routes.addPrompt);
-            }}
+            onClick={handleAddPromptClick}
           />
         </div>
         <div className="sidebarOptions">
@@ -90,9 +101,7 @@ function Dashboard() {
             size="xs"
             backgroundColour="var(--light-overlay-color)"
             flat
-            onClick={() => {
-              nav(routes.addCategory);
-            }}
+            onClick={handleAddCategoryClick}
           />
         </div>
         <div className="sidebarOptions">
@@ -135,9 +144,7 @@ function Dashboard() {
           >
             <CustomButton
               leftIcon={<AddIcon />}
-              onClick={() => {
-                nav(routes.addPrompt);
-              }}
+              onClick={handleAddPromptClick}
             >
               Add New Prompt
             </CustomButton>
@@ -145,9 +152,7 @@ function Dashboard() {
               width="24px"
               height="24px"
               cursor="pointer"
-              onClick={() => {
-                nav(routes.settings);
-              }}
+              onClick={handleSettingsClick}
             />
           </div>
         </div>
