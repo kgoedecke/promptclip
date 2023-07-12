@@ -75,7 +75,7 @@
       "resources": [],
       "shortDescription": "",
       "targets": [
-        "app"
+        "app", "dmg"
       ],
       "windows": {
         "certificateThumbprint": null,
