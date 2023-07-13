@@ -84,7 +84,7 @@
       }
     },
     "security": {
-      "csp": "default-src promptclip: asset: https://asset.localhost img-src: 'self'; style-src 'self' 'unsafe-inline'"
+      "csp": "default-src promptclip: asset: https://asset.localhost img-src: 'self' data:; style-src 'self' 'unsafe-inline'"
     },
     "updater": {
       "active": false
