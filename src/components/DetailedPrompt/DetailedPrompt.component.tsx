@@ -1,6 +1,9 @@
 import React, { useContext } from 'react';
-import { Box, Text, Tag } from '@chakra-ui/react';
+import {
+  Box, Text, Tag, useToast,
+} from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+import { CopyIcon } from '@chakra-ui/icons';
 import { IPrompt } from '../../types/Prompt.types';
 import { deletePrompt, toggleFavorite } from '../../utils/database';
 import { UpdateContext } from '../../contexts/update.context';
@@ -10,7 +13,6 @@ import StarsIcon from '../Icons/StarsIcon.png';
 import { UsedForIcon } from '../Icons/UsedForIcon';
 import { HeartIcon } from '../Icons/HeartIcon';
 import { TrashIcon } from '../Icons/TrashIcon';
-import { EditIcon } from '../Icons/EditIcon';
 
 const DetailedPrompt: React.FC<IPrompt> = ({
   promptName,
@@ -22,6 +24,7 @@ const DetailedPrompt: React.FC<IPrompt> = ({
 }) => {
   const { setUpdate } = useContext(UpdateContext);
   const { categories } = useContext(CategoriesContext);
+  const toast = useToast();
   const promptCategory = categories.find((category) => category.uuid === category_id)?.name;
   const navigate = useNavigate();
 
@@ -39,6 +42,17 @@ const DetailedPrompt: React.FC<IPrompt> = ({
     event.stopPropagation();
     await deletePrompt(uuid);
     setUpdate();
+  };
+
+  const handleCopyPrompt = async (event: React.MouseEvent) => {
+    event.stopPropagation();
+    await navigator.clipboard.writeText(prompt);
+    toast({
+      title: 'Prompt copied to clipboard',
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    });
   };
 
   return (
@@ -114,10 +128,12 @@ const DetailedPrompt: React.FC<IPrompt> = ({
               {used}
             </Text>
           </div>
-          <EditIcon
+          <CopyIcon
+            width="18px"
+            height="18px"
+            color="grey"
             cursor="pointer"
-            marginTop="1px"
-            onClick={editPrompt}
+            onClick={handleCopyPrompt}
           />
           <HeartIcon
             width="18px"
