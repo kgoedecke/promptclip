@@ -146,7 +146,7 @@ function Dashboard() {
               leftIcon={<AddIcon />}
               onClick={handleAddPromptClick}
             >
-              Add New Prompt
+              New Prompt
             </CustomButton>
             <SettingsIcon
               width="24px"
