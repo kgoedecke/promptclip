@@ -55,7 +55,7 @@ function Dashboard() {
 
   return (
     <div className="dashboardWindow">
-      <div className="leftSideBar">
+      <div data-tauri-drag-region className="leftSideBar">
         <TitleBar />
         <Logo className="logo" />
         <div className="sidebarOptionsHeader">
@@ -126,7 +126,7 @@ function Dashboard() {
         orientation="vertical"
       />
       <div className="rightWindow">
-        <div className="topStatusBar">
+        <div data-tauri-drag-region className="topStatusBar">
           <div>
             <Text fontWeight="bold" fontSize="14px">
               Welcome back
