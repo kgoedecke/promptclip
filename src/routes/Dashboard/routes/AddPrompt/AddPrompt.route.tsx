@@ -55,7 +55,7 @@ function AddPrompt() {
     <Box borderRadius="md" overflowY="auto" maxHeight="calc(100vh - 127px)">
       <VStack spacing={4} align="start">
         <FormControl>
-          <Text fontWeight="bold">Add New Prompt</Text>
+          <Text fontWeight="bold">New Prompt</Text>
         </FormControl>
 
         <FormControl>
