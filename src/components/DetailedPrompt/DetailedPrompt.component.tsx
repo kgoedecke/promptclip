@@ -25,16 +25,18 @@ const DetailedPrompt: React.FC<IPrompt> = ({
   const promptCategory = categories.find((category) => category.uuid === category_id)?.name;
   const navigate = useNavigate();
 
-  const handleEditPrompt = () => {
+  const editPrompt = () => {
     navigate(`${routes.editPrompt}/${uuid}`);
   };
 
-  const handleToggleFavorite = async () => {
+  const handleToggleFavorite = async (event: React.MouseEvent) => {
+    event.stopPropagation();
     await toggleFavorite(uuid, isFavorite);
     setUpdate();
   };
 
-  const handleDeletePrompt = async () => {
+  const handleDeletePrompt = async (event: React.MouseEvent) => {
+    event.stopPropagation();
     await deletePrompt(uuid);
     setUpdate();
   };
@@ -42,15 +44,18 @@ const DetailedPrompt: React.FC<IPrompt> = ({
   return (
     <div>
       <Box
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          backgroundColor: 'var(--lighter-overlay-color)',
-          borderRadius: '10px',
-          padding: '16px',
-          marginTop: '8px',
+        display="flex"
+        justifyContent="space-between"
+        flexDirection="row"
+        backgroundColor="var(--lighter-overlay-color)"
+        borderRadius="10px"
+        padding="16px"
+        marginTop="8px"
+        cursor="pointer"
+        _hover={{
+          backgroundColor: 'var(--light-overlay-color)',
         }}
+        onClick={editPrompt}
       >
         <div
           style={{
@@ -112,7 +117,7 @@ const DetailedPrompt: React.FC<IPrompt> = ({
           <EditIcon
             cursor="pointer"
             marginTop="1px"
-            onClick={handleEditPrompt}
+            onClick={editPrompt}
           />
           <HeartIcon
             width="18px"
