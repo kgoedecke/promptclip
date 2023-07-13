@@ -6,7 +6,7 @@ import { deletePrompt, toggleFavorite } from '../../utils/database';
 import { UpdateContext } from '../../contexts/update.context';
 import { CategoriesContext } from '../../contexts/categories.context';
 import { routes } from '../../routes/Dashboard/routes/routes';
-import { StarIcon } from '../Icons/StarsIcon';
+import StarsIcon from '../Icons/StarsIcon.png';
 import { UsedForIcon } from '../Icons/UsedForIcon';
 import { HeartIcon } from '../Icons/HeartIcon';
 import { TrashIcon } from '../Icons/TrashIcon';
@@ -59,7 +59,13 @@ const DetailedPrompt: React.FC<IPrompt> = ({
             flexDirection: 'row',
           }}
         >
-          <StarIcon width="24px" height="24px" marginRight="12px" />
+          <img
+            src={StarsIcon}
+            alt="Star icon"
+            style={{
+              width: '24px', height: '24px', marginRight: '12px',
+            }}
+          />
           <div
             style={{
               width: '506px',

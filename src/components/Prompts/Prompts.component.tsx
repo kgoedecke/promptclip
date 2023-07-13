@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from '@chakra-ui/react';
 import { IPrompt } from '../../types/Prompt.types';
-import Prompt from '../PromptButton/PromptButton.component';
+import PromptButton from '../PromptButton/PromptButton.component';
 
 const Prompts: React.FC<{ prompts: IPrompt[]; refreshPrompts: () => void }> = ({
   prompts,
@@ -25,7 +25,7 @@ const Prompts: React.FC<{ prompts: IPrompt[]; refreshPrompts: () => void }> = ({
 
     return prompts
       .slice(0, 9)
-      .map((prompt, index) => <Prompt key={prompt.uuid} index={index + 1} {...prompt} />);
+      .map((prompt, index) => <PromptButton key={prompt.uuid} index={index + 1} {...prompt} />);
   };
 
   return (
