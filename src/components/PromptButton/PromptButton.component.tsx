@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Flex, Text } from '@chakra-ui/react';
 import { appWindow } from '@tauri-apps/api/window';
-import { StarIcon } from '../Icons/StarsIcon';
+import StarsIcon from '../Icons/starsIcon.png';
 import CustomIconButton from '../CustomIconButton/CustomIconButton.component';
 import { incrementUsageAndSetLastUsed } from '../../utils/database';
 import { IPrompt } from '../../types/Prompt.types';
@@ -15,7 +15,7 @@ const copyToClipboard = async (value: string) => {
   await appWindow.hide();
 };
 
-const Prompt: React.FC<IPromptProps> = ({
+const PromptButton: React.FC<IPromptProps> = ({
   uuid, prompt, promptName, index,
 }) => {
   const handleButtonClick = () => {
@@ -42,7 +42,7 @@ const Prompt: React.FC<IPromptProps> = ({
       id={uuid.toString()}
     >
       <Flex align="center">
-        <StarIcon width="24px" height="24px" />
+        <img src={StarsIcon} alt="" width="24px" height="24px" />
         <Text ml={2}>{promptName}</Text>
       </Flex>
       <Flex>
@@ -53,4 +53,4 @@ const Prompt: React.FC<IPromptProps> = ({
   );
 };
 
-export default Prompt;
+export default PromptButton;
