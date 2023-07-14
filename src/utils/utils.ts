@@ -67,10 +67,6 @@ export const initialiseApp = async () => {
     getDashboardWindow()?.show();
   });
 
-  await listen('showApp', () => {
-    // document.getElementById('search-input')!.focus();
-  });
-
   await invoke('launch_on_login', {
     enable: await store.get('launch_on_login'),
   });
