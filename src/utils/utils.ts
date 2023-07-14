@@ -54,6 +54,7 @@ export const initialiseApp = async () => {
     if (event.metaKey && event.key === 'n') {
       getDashboardWindow()?.show();
       getDashboardWindow()?.setFocus();
+      getDashboardWindow()?.emit('newPrompt');
     }
   };
 

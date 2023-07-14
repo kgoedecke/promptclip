@@ -6,6 +6,7 @@ import {
 import {
   Routes, Route, useLocation, useNavigate,
 } from 'react-router-dom';
+import { listen } from '@tauri-apps/api/event';
 import TitleBar from '../../components/TitleBar/TitleBar.component';
 import { Logo } from '../../components/Icons/PromptClipLogo';
 import SideBarButton from '../../components/SideBarButtons/SideBarButton.component';
@@ -52,6 +53,10 @@ function Dashboard() {
   const handleSettingsClick = () => {
     nav(routes.settings);
   };
+
+  listen('newPrompt', async () => {
+    nav(routes.addPrompt);
+  });
 
   return (
     <div className="dashboardWindow">
