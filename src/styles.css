@@ -77,7 +77,20 @@ body {
 
 .categoriesOptions {
   overflow-y: auto; 
-  max-height: calc(100vh - 380px);
+  max-height: calc(100vh - 426px);
+}
+
+.settingsButton {
+  display: flex;
+  gap: 12px;
+  margin: 20px 0px 20px 24px;
+}
+
+.settingsButtonContainer {
+  position: absolute;
+  bottom: 0;
+  width: 250px;
+  flex-direction: column;
 }
 
 .detailedPromptsContainer {

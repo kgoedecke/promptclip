@@ -122,6 +122,33 @@ function Dashboard() {
             ))}
           </div>
         </div>
+        <div
+          className="settingsButtonContainer"
+        >
+          <Divider
+            borderColor="rgba(255,255,255, 0.1)"
+            marginBottom="10px"
+            marginLeft={0}
+          />
+          <div
+            className="settingsButton"
+            role="button"
+            onClick={handleSettingsClick}
+            tabIndex={0}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                handleSettingsClick();
+              }
+            }}
+          >
+            <SettingsIcon
+              style={{
+                marginTop: '2px',
+              }}
+            />
+            <Text color="#787C83">Settings</Text>
+          </div>
+        </div>
       </div>
       <Divider
         borderColor="rgba(255,255,255, 0.1)"
@@ -147,18 +174,9 @@ function Dashboard() {
               gap: '16px',
             }}
           >
-            <CustomButton
-              leftIcon={<AddIcon />}
-              onClick={handleAddPromptClick}
-            >
+            <CustomButton leftIcon={<AddIcon />} onClick={handleAddPromptClick}>
               New Prompt
             </CustomButton>
-            <SettingsIcon
-              width="24px"
-              height="24px"
-              cursor="pointer"
-              onClick={handleSettingsClick}
-            />
           </div>
         </div>
         <Divider
