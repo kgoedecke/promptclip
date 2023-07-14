@@ -4,19 +4,20 @@ import { listen } from '@tauri-apps/api/event';
 import { Store } from 'tauri-plugin-store-api';
 import { register, unregister } from '@tauri-apps/api/globalShortcut';
 import { createPromptsTable } from './database';
-import { createDashboardWindow, getDashboardWindow } from './window';
+import { createDashboardWindow, getDashboardWindow, getSearchWindow } from './window';
 import { IPrompt } from '../types/Prompt.types';
 
 export const store = new Store('.settings.dat');
 
 export const listenForHotkey = async (shortcut: string) => {
+  const searchWindow = getSearchWindow()!;
   await register(shortcut, async () => {
-    if (document.hasFocus()) {
-      await appWindow.hide();
+    if (await searchWindow.isFocused()) {
+      await searchWindow.hide();
     } else {
-      await appWindow.show();
-      await appWindow.center();
-      await appWindow.setFocus();
+      await searchWindow.show();
+      await searchWindow.center();
+      await searchWindow.setFocus();
     }
   });
 };

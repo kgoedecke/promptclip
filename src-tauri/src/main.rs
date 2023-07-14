@@ -47,7 +47,7 @@ fn main() {
         ])
         .setup(|app| {
             app.set_activation_policy(tauri::ActivationPolicy::Accessory);
-            let window = app.get_window("main").unwrap();
+            let window = app.get_window("search").unwrap();
             #[cfg(target_os = "macos")]
             apply_vibrancy(&window, NSVisualEffectMaterial::HudWindow, None, Some(10.0))
                 .expect("Unsupported platform! 'apply_vibrancy' is only supported on macOS");

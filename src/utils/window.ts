@@ -45,3 +45,4 @@ export const createDashboardWindow = async () => {
 };
 
 export const getDashboardWindow = () => WebviewWindow.getByLabel('dashboard');
+export const getSearchWindow = () => WebviewWindow.getByLabel('search');

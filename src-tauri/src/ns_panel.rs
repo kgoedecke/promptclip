@@ -110,7 +110,7 @@ macro_rules! nsstring_to_string {
 }
 
 static INIT: Once = Once::new();
-static PANEL_LABEL: &str = "main";
+static PANEL_LABEL: &str = "search";
 
 #[tauri::command]
 pub fn init_ns_panel(
