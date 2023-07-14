@@ -91,6 +91,7 @@
     },
     "windows": [
       {
+        "label": "search",
         "fullscreen": false,
         "resizable": false,
         "title": "",
