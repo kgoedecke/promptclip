@@ -51,7 +51,6 @@ fn main() {
             #[cfg(target_os = "macos")]
             apply_vibrancy(&window, NSVisualEffectMaterial::HudWindow, None, Some(10.0))
                 .expect("Unsupported platform! 'apply_vibrancy' is only supported on macOS");
-            window.hide().unwrap();
             Ok(())
         })
         .manage(ns_panel::State::default())

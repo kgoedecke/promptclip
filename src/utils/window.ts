@@ -35,7 +35,6 @@ export const createDashboardWindow = async () => {
   await invoke('apply_vibrancy_to_dashboard', {
     window: DashboardWindow,
   });
-  DashboardWindow.hide();
   DashboardWindow.setSize(new LogicalSize(1000, 722));
   DashboardWindow.center();
   DashboardWindow.onCloseRequested((event) => {
