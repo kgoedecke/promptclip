@@ -58,17 +58,17 @@ fn main() {
         .on_system_tray_event(|app, event| match event {
             SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
                 "Hide" => {
-                    let window = app.get_window("main").unwrap();
+                    let window = app.get_window("search").unwrap();
                     window.hide().unwrap();
                 }
                 "Show" => {
-                    let window = app.get_window("main").unwrap();
+                    let window = app.get_window("search").unwrap();
                     window.emit("showApp", Some("Yes")).unwrap();
                     window.show().unwrap();
                     window.center().unwrap();
                 }
                 "Dashboard" => {
-                    let window = app.get_window("main").unwrap();
+                    let window = app.get_window("search").unwrap();
                     window.emit("showDashboard", Some("Yes")).unwrap();
                     window.show().unwrap();
                     window.center().unwrap();
