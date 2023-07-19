@@ -1,5 +1,7 @@
 # 📎 PromptClip - Prompt Manager for MacOS
 
+<img src="https://github.com/kgoedecke/promptclip/assets/5519740/812741fa-0311-456f-b769-32cf1e1a5bd6" style="width: 350px;">
+
 Website: [www.getpromptclip.com](https://getpromptclip.com)
 
 PromptClip is a Tauri app to manage AI prompts easily. It provides a convenient way to save prompts and retrieve them for later use. With PromptClip, you can efficiently manage and organize your AI prompts to enhance your workflow.
