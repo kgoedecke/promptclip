@@ -34,7 +34,7 @@ function SearchInput() {
         fontSize="18px"
         size="lg"
         variant="filled"
-        focusBorderColor="0"
+        border="none"
         background="transparent"
         color="white"
         _hover={{ bg: 'transparent' }}
