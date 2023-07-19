@@ -49,7 +49,7 @@ If you encounter any issues, please make sure you have all the necessary depende
 
 ## License
 
-PromptClip is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute the app according to the terms of the license.
+PromptClip is licensed under the [GNU Affero General Public License v3.0](LICENSE).
 
 ## Acknowledgements
 
